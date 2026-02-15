@@ -8,3 +8,11 @@
 	font-family: "Funnel Sans", sans-serif;
 	font-size: 16px;
 }
+.container {
+	max-width: 1300px;
+	margin: 0 auto;
+	padding: 0 0.5em;
+}
+[data-slot="tabList"] {
+	flex-wrap: wrap;
+}
