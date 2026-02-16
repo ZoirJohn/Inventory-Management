@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 const links = {
-	inventory: "Inventory",
+	inventories: "Inventories",
 	settings: "Settings",
 	users: "Users",
 };
