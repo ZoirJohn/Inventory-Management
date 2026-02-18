@@ -86,7 +86,6 @@ passport.use(
 					.values({
 						email,
 						name: profile.displayName,
-						image: profile.photos?.[0]?.value,
 						googleId: profile.id,
 					})
 					.returning();
@@ -137,7 +136,6 @@ passport.use(
 					.values({
 						email,
 						name: `${profile.name?.givenName} ${profile.name?.familyName}`.trim(),
-						image: profile.photos?.[0]?.value,
 						facebookId: profile.id,
 					})
 					.returning();
