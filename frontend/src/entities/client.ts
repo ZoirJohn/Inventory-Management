@@ -8,23 +8,18 @@ const API = {
 } as const;
 
 export const client = {
-	AUTH_GOOGLE: async () => {
+	AUTH_GOOGLE: async (redirect: (route: string) => void) => {
 		try {
-			window.location.href=API.AUTH_GOOGLE
+			redirect(API.AUTH_GOOGLE);
 		} catch (error) {
 			if (error instanceof Error) {
 				throw new Error(error.message);
 			}
 		}
 	},
-	AUTH_FACEBOOK: async () => {
+	AUTH_FACEBOOK: async (redirect: (route: string) => void) => {
 		try {
-			const res = await fetch(API.AUTH_FACEBOOK);
-			const data = await res.json();
-			if (data.error) {
-				throw new Error(data.error.message);
-			}
-			return data;
+			redirect(API.AUTH_FACEBOOK);
 		} catch (error) {
 			if (error instanceof Error) {
 				throw new Error(error.message);
