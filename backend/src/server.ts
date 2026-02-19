@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 
 app.use(
 	cors({
-		origin: process.env.FRONTEND_URL || "http://localhost:5173",
+		origin: process.env.FRONTEND_URL,
 		credentials: true,
 	}),
 );
@@ -41,5 +41,5 @@ app.get("/health", (req, res) => {
 });
 
 app.listen(PORT, () => {
-	console.log('Server running');
+	console.log(`Server running in http://localhost:${process.env.PORT}`);
 });

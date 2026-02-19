@@ -4,6 +4,7 @@ import { Card, CardBody } from "@heroui/card";
 import { Tabs, Tab } from "@heroui/tabs";
 import { Input } from "@heroui/input";
 import { Link } from "@heroui/link";
+import { Facebook, Google } from "@/widgets/OAuthButtons";
 
 type TAuth = "login" | "sign-up";
 
@@ -25,15 +26,17 @@ export default function Auth() {
 										Sign up
 									</Link>
 								</p>
-								<div className="flex justify-end gap-2">
+								<div className="flex flex-col gap-2">
 									<Button fullWidth color="primary">
 										Login
 									</Button>
+									<Google />
+									<Facebook />
 								</div>
 							</form>
 						</Tab>
 						<Tab key="sign-up" title="Sign up">
-							<form className="flex flex-col gap-4 h-[300px]">
+							<form className="flex flex-col gap-4">
 								<Input isRequired label="Name" placeholder="Enter your name" type="text" autoComplete="username" />
 								<Input isRequired label="Email" placeholder="Enter your email" type="email" autoComplete="email" />
 								<Input isRequired label="Password" placeholder="Enter your password" type="password" autoComplete="current-password" />
@@ -43,10 +46,12 @@ export default function Auth() {
 										Login
 									</Link>
 								</p>
-								<div className="flex justify-end gap-2">
+								<div className="flex flex-col gap-2">
 									<Button fullWidth color="primary">
 										Sign up
 									</Button>
+									<Google />
+									<Facebook />
 								</div>
 							</form>
 						</Tab>

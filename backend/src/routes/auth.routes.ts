@@ -74,13 +74,13 @@ router.get(
 		failureRedirect: `${process.env.FRONTEND_URL}/login?error=facebook_failed`,
 	}),
 	(req, res) => {
-		res.redirect(process.env.FRONTEND_URL || "http://localhost:5173");
+		res.redirect(process.env.FRONTEND_URL!);
 	},
 );
 
 router.get("/me", isAuthenticated, (req, res) => {
 	const { password: _, ...safeUser } = req.user as any;
-	res.json(safeUser);	
+	res.json(safeUser);
 });
 
 router.post("/logout", isAuthenticated, (req, res) => {
@@ -90,4 +90,4 @@ router.post("/logout", isAuthenticated, (req, res) => {
 	});
 });
 
-export default router
+export default router;
