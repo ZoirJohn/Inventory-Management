@@ -8,7 +8,7 @@ export default function Inventory() {
 	const currentTab = pathname.split("/").filter(Boolean).at(-1);
 	return (
 		<div className="container flex flex-col gap-4">
-			<Tabs aria-label="Inventory Tabs" variant="underlined" selectedKey={currentTab} onSelectionChange={(key) => navigate(key.toString())} className="">
+			<Tabs aria-label="Inventory Tabs" id="inventory-tab" variant="underlined" selectedKey={currentTab} onSelectionChange={(key) => navigate(key.toString())} >
 				{tabs.map((tab, _) => {
 					return <Tab key={tab} title={tab.toUpperCase()} className="w-auto" />;
 				})}

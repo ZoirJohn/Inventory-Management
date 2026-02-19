@@ -13,6 +13,6 @@
 	margin: 0 auto;
 	padding: 0 0.5em;
 }
-[data-slot="tabList"] {
-	flex-wrap: wrap;
+#inventory-tab > [data-slot] {
+	flex-wrap: wrap !important;
 }
