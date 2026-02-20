@@ -10,7 +10,6 @@ type TAuth = "login" | "sign-up";
 
 export default function Auth() {
 	const [selected, setSelected] = useState<TAuth>("login");
-
 	return (
 		<section className="flex w-full min-h-screen items-center justify-center">
 			<Card className="w-80 max-w-full grow-0 basis-auto h-auto">
@@ -30,8 +29,8 @@ export default function Auth() {
 									<Button fullWidth color="primary">
 										Login
 									</Button>
-									<Google />
-									<Facebook />
+									<Google  />
+									<Facebook  />
 								</div>
 							</form>
 						</Tab>

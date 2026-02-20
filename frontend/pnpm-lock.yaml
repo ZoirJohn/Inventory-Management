@@ -53,6 +53,9 @@ importers:
       '@heroui/use-theme':
         specifier: 2.1.10
         version: 2.1.10(react@18.3.1)
+      '@heroui/user':
+        specifier: ^2.2.25
+        version: 2.2.25(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-aria/visually-hidden':
         specifier: 3.8.30
         version: 3.8.30(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -475,6 +478,14 @@ packages:
       react: '>=18 || >=19.0.0-rc.0'
       react-dom: '>=18 || >=19.0.0-rc.0'
 
+  '@heroui/avatar@2.2.25':
+    resolution: {integrity: sha512-P4ExI0th+UlBzBojQ5jBff6C7QPTmkDZwBqCDM+6DMBPKSFyt6hWG7xaOi33g0X41QuArOlWpPOe6aG5iUZAyA==}
+    peerDependencies:
+      '@heroui/system': '>=2.4.18'
+      '@heroui/theme': '>=2.4.24'
+      react: '>=18 || >=19.0.0-rc.0'
+      react-dom: '>=18 || >=19.0.0-rc.0'
+
   '@heroui/button@2.2.31':
     resolution: {integrity: sha512-U7zMGTsesEa/2plBNkwRLzhNLQtKIV03u5hbR4Te+sP3MxKZgcjJHH0ZJWeeyHoAszIiE39UYUs+lhF4XzqxzA==}
     peerDependencies:
@@ -714,6 +725,11 @@ packages:
     peerDependencies:
       react: '>=18 || >=19.0.0-rc.0'
 
+  '@heroui/use-image@2.1.14':
+    resolution: {integrity: sha512-eCxtKOsM1tszBKYqz8qIJwGIxEAUC7ua+6L9vK8JgG6gOC0jEPFGH7keQuPVprzRtG3DmNt90icowqEjnOHdFQ==}
+    peerDependencies:
+      react: '>=18 || >=19.0.0-rc.0'
+
   '@heroui/use-is-mobile@2.2.12':
     resolution: {integrity: sha512-2UKa4v1xbvFwerWKoMTrg4q9ZfP9MVIVfCl1a7JuKQlXq3jcyV6z1as5bZ41pCsTOT+wUVOFnlr6rzzQwT9ZOA==}
     peerDependencies:
@@ -748,6 +764,14 @@ packages:
     resolution: {integrity: sha512-JM9Y56bzHMU0rEz1K86Tnli2oRqQY3/NYNOHXbVXQtP+ZB2eabm9Cbl15bPZzSskpEsD5oKnbccFV4dCYhenmw==}
     peerDependencies:
       react: '>=18 || >=19.0.0-rc.0'
+
+  '@heroui/user@2.2.25':
+    resolution: {integrity: sha512-YabNXAYAQbGrHojjG/koHr9F1pMgxQrdVUiSXihqtxaCmY8PLH7uDqj0QMRtmh6v4h/gsfXvVWzkWnTA6/WuEg==}
+    peerDependencies:
+      '@heroui/system': '>=2.4.18'
+      '@heroui/theme': '>=2.4.24'
+      react: '>=18 || >=19.0.0-rc.0'
+      react-dom: '>=18 || >=19.0.0-rc.0'
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -3150,6 +3174,18 @@ snapshots:
       - '@heroui/theme'
       - framer-motion
 
+  '@heroui/avatar@2.2.25(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@heroui/react-utils': 2.1.14(react@18.3.1)
+      '@heroui/shared-utils': 2.1.12
+      '@heroui/system': 2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@heroui/theme': 2.4.26(tailwindcss@4.1.11)
+      '@heroui/use-image': 2.1.14(react@18.3.1)
+      '@react-aria/focus': 3.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/interactions': 3.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@heroui/button@2.2.31(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@heroui/react-utils': 2.1.14(react@18.3.1)
@@ -3559,6 +3595,12 @@ snapshots:
     dependencies:
       react: 18.3.1
 
+  '@heroui/use-image@2.1.14(react@18.3.1)':
+    dependencies:
+      '@heroui/react-utils': 2.1.14(react@18.3.1)
+      '@heroui/use-safe-layout-effect': 2.1.8(react@18.3.1)
+      react: 18.3.1
+
   '@heroui/use-is-mobile@2.2.12(react@18.3.1)':
     dependencies:
       '@react-aria/ssr': 3.9.10(react@18.3.1)
@@ -3587,6 +3629,17 @@ snapshots:
   '@heroui/use-theme@2.1.10(react@18.3.1)':
     dependencies:
       react: 18.3.1
+
+  '@heroui/user@2.2.25(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@heroui/avatar': 2.2.25(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@heroui/react-utils': 2.1.14(react@18.3.1)
+      '@heroui/shared-utils': 2.1.12
+      '@heroui/system': 2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@heroui/theme': 2.4.26(tailwindcss@4.1.11)
+      '@react-aria/focus': 3.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@humanfs/core@0.19.1': {}
 

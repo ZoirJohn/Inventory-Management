@@ -3,7 +3,6 @@ import { NavLink, useParams } from "react-router-dom";
 
 export default function InventoryLink() {
 	const { inventoryId } = useParams();
-	console.log(inventoryId);
 	return (
 		<NavLink to="1">
 			<Card className="py-4">

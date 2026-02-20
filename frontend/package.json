@@ -25,6 +25,7 @@
     "@heroui/tabs": "^2.2.28",
     "@heroui/theme": "2.4.26",
     "@heroui/use-theme": "2.1.10",
+    "@heroui/user": "^2.2.25",
     "@react-aria/visually-hidden": "3.8.30",
     "@react-types/shared": "3.33.0",
     "@tailwindcss/postcss": "4.1.11",

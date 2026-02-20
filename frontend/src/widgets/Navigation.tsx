@@ -1,5 +1,8 @@
 import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 import { NavLink } from "react-router-dom";
+import { User } from "@heroui/user";
+import useUser from "@/entities/hooks/useUser";
 
 const links = {
 	inventories: "Inventories",
@@ -9,6 +12,7 @@ const links = {
 type TLinkKeys = keyof typeof links;
 
 export default function Navigation() {
+	const { user, loading, error } = useUser();
 	return (
 		<nav>
 			<div className="flex justify-between items-center h-16 container">
@@ -21,11 +25,24 @@ export default function Navigation() {
 						);
 					})}
 				</ul>
-				<div>
-					<NavLink to="auth">
-						<Button>Login</Button>
-					</NavLink>
-				</div>
+				{loading ? (
+					<></>
+				) : user ? (
+					<User
+						description={
+							<Link isExternal href={"mailto:"+user.email} size="sm">
+								{user.email}
+							</Link>
+						}
+						name={user.name}
+					/>
+				) : (
+					<div>
+						<NavLink to="auth">
+							<Button>Login</Button>
+						</NavLink>
+					</div>
+				)}
 			</div>
 		</nav>
 	);
