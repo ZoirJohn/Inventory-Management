@@ -1,8 +1,7 @@
 import { Card, CardBody, CardHeader } from "@heroui/card";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function InventoryLink() {
-	const { inventoryId } = useParams();
 	return (
 		<NavLink to="1">
 			<Card className="py-4">

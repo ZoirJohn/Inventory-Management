@@ -1,4 +1,5 @@
 import Auth from "@/pages/Auth";
+import CustomID from "@/pages/CustomID";
 import Home from "@/pages/Home";
 import Inventories from "@/pages/Inventories";
 import DataTable from "@/widgets/DataTable";
@@ -21,7 +22,7 @@ function App() {
 						<Route path="items" element={<DataTable />} />
 						<Route path="chat" element={<>Chat</>} />
 						<Route path="settings" element={<>Inventory Settings</>} />
-						<Route path="custom-id" element={<>Custom ID Content</>} />
+						<Route path="custom-id" element={<CustomID />} />
 						<Route path="fields" element={<>Fields Content</>} />
 						<Route path="access" element={<>Access Content</>} />
 						<Route path="stats" element={<>Stats Content</>} />

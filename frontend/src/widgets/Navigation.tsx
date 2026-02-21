@@ -12,7 +12,7 @@ const links = {
 type TLinkKeys = keyof typeof links;
 
 export default function Navigation() {
-	const { user, loading, error } = useUser();
+	const { user, loading } = useUser();
 	return (
 		<nav>
 			<div className="flex justify-between items-center h-16 container">
@@ -27,10 +27,10 @@ export default function Navigation() {
 				</ul>
 				{loading ? (
 					<></>
-				) : user ? (
+				) : user.email ? (
 					<User
 						description={
-							<Link isExternal href={"mailto:"+user.email} size="sm">
+							<Link isExternal href={"mailto:" + user.email} size="sm">
 								{user.email}
 							</Link>
 						}
