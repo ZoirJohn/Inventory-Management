@@ -1,12 +1,12 @@
-const customId: Record<RandomID, ReturnType<typeof random20Bit | typeof random32Bit | typeof random6Digit | typeof random9Digit>> = {
-	"20-bit-number": 12,
-	"32-bit-number": 12,
-	"9-digit-number": 12,
-	"6-digit-number": 12,
-	"date-time": 12,
-	guid: 12,
-	sequence: 12,
-	fixed: 12,
+const customId: Record<RandomID, () => void> = {
+	"20-bit-number": () => random20Bit(),
+	"32-bit-number": () => random32Bit(),
+	"9-digit-number": () => random9Digit(),
+	"6-digit-number": () => random6Digit(),
+	"date-time": () => randomDate(),
+	guid: () => randomGUID(),
+	sequence: () => sequence(),
+	fixed: () => "",
 };
 
 function random20Bit() {
@@ -26,6 +26,15 @@ function random6Digit() {
 }
 function random9Digit() {
 	return (crypto.getRandomValues(new Uint32Array(1))[0] % 900000000) + 100000000;
+}
+function randomDate() {
+	return new Date().toISOString();
+}
+function randomGUID() {
+	return crypto.randomUUID;
+}
+function sequence() {
+	return 1;
 }
 
 export { customId, random20Bit, random32Bit, random6Digit, random9Digit };

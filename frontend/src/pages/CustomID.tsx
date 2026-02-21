@@ -1,12 +1,10 @@
-import { random20Bit, random32Bit, random6Digit, random9Digit } from "@/entities/utils/createCustomId";
+import { customId } from "@/entities/utils/createCustomId";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default function CustomID() {
-	const sequenceRef = useRef(1);
-
 	const elements: { key: RandomID; label: string }[] = [
 		{ key: "fixed", label: "Fixed" },
 		{ key: "20-bit-number", label: "20-bit random number" },
@@ -14,18 +12,9 @@ export default function CustomID() {
 		{ key: "6-digit-number", label: "6-digit random number" },
 		{ key: "9-digit-number", label: "9-digit random number" },
 		{ key: "guid", label: "GUID" },
+		{ key: "sequence", label: "Sequence" },
+		{ key: "date-time", label: "Date" },
 	];
-
-	const generators: Record<RandomID, () => string> = {
-		"20-bit-number": () => String(random20Bit()),
-		"32-bit-number": () => String(random32Bit()),
-		"6-digit-number": () => String(random6Digit()),
-		"9-digit-number": () => String(random9Digit()),
-		fixed: () => "",
-		guid: () => crypto.randomUUID(),
-		sequence: () => String(sequenceRef.current++),
-		"date-time": () => new Date().toISOString(),
-	};
 
 	const [selects, setSelects] = useState<{ key: RandomID; value: string }[]>([]);
 
@@ -33,7 +22,7 @@ export default function CustomID() {
 		<section>
 			<div className="flex flex-col items-start gap-2 container">
 				{selects.map((select, idx) => (
-					<label className="flex w-1/2 items-center gap-4" key={idx}>
+					<label className="flex items-center gap-4 w-1/2" key={idx}>
 						<Select
 							selectedKeys={[select.key]}
 							onSelectionChange={(keys) => {
@@ -43,15 +32,18 @@ export default function CustomID() {
 									const copy = [...prev];
 									copy[idx] = {
 										key,
-										value: generators[key](),
+										value: String(customId[key]()),
 									};
 									return copy;
 								});
 							}}
 							className="max-w-xs"
+							aria-label="select-box"
 						>
 							{elements.map((element) => (
-								<SelectItem key={element.key}>{element.label}</SelectItem>
+								<SelectItem key={element.key} aria-label="select-item">
+									{element.label}
+								</SelectItem>
 							))}
 						</Select>
 
@@ -76,7 +68,7 @@ export default function CustomID() {
 							...prev,
 							{
 								key: "20-bit-number",
-								value: generators["20-bit-number"](),
+								value: String(customId["20-bit-number"]()),
 							},
 						])
 					}
