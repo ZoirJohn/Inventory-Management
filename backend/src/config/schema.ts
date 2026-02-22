@@ -147,3 +147,22 @@ export const items = pgTable(
 
 export type TItem = typeof items.$inferSelect;
 export type TNewItem = typeof items.$inferInsert;
+
+export const idFormatElements = pgTable(
+	"id_format_elements",
+	{
+		id: uuid("id").primaryKey().defaultRandom(),
+		inventoryId: uuid("inventory_id")
+			.notNull()
+			.references(() => inventories.id, { onDelete: "cascade" }),
+		order: integer("order").notNull(),
+		type: varchar("type", { length: 50 }).notNull(),
+		value: varchar("value", { length: 100 }),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+	},
+	(table) => ({
+		inventoryIdx: uniqueIndex("id_element_inventory_idx").on(table.inventoryId, table.order),
+	}),
+);
+export type IdFormatElement = typeof idFormatElements.$inferSelect;
+export type NewIdFormatElement = typeof idFormatElements.$inferInsert;

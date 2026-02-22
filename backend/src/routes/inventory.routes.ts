@@ -58,7 +58,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", isAuthenticated, async (req, res) => {
 	try {
-		const { title, description, category, imageUrl, isPublic, customIdPrefix, customString1State, customString1Name, customString2State, customString2Name, customString3State, customString3Name, customText1State, customText1Name, customText2State, customText2Name, customText3State, customText3Name, customInt1State, customInt1Name, customInt2State, customInt2Name, customInt3State, customInt3Name, customLink1State, customLink1Name, customLink2State, customLink2Name, customLink3State, customLink3Name, customBool1State, customBool1Name, customBool2State, customBool2Name, customBool3State, customBool3Name } = req.body;
+		const { title, description, isPublic, customIdPrefix, customString1State, customString1Name, customString2State, customString2Name, customString3State, customString3Name, customText1State, customText1Name, customText2State, customText2Name, customText3State, customText3Name, customInt1State, customInt1Name, customInt2State, customInt2Name, customInt3State, customInt3Name, customLink1State, customLink1Name, customLink2State, customLink2Name, customLink3State, customLink3Name, customBool1State, customBool1Name, customBool2State, customBool2Name, customBool3State, customBool3Name } = req.body;
 
 		if (!title) {
 			return res.status(400).json({ message: "Title is required" });

@@ -37,7 +37,7 @@ app.use(passport.session());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/inventories", inventoryRoutes);
-app.use("/api/items", itemsRoutes);
+app.use("/api", itemsRoutes);
 
 app.get("/health", (req, res) => {
 	res.json({ status: "ok", message: "Server is running" });
