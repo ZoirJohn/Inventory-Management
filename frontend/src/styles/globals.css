@@ -1,13 +1,19 @@
+* {
+	font-family: "Funnel Sans", sans-serif;
+}
+button,
+p,
+span,
+a {
+	font-size: 1rem;
+}
+
 @import "tailwindcss";
 @plugin '../app/hero.ts';
 
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
 
-* {
-	font-family: "Funnel Sans", sans-serif;
-	font-size: 16px;
-}
 .container {
 	max-width: 1300px;
 	margin: 0 auto;
@@ -15,4 +21,10 @@
 }
 #inventory-tab > [data-slot] {
 	flex-wrap: wrap !important;
+}
+input::placeholder {
+	font-size: large;
+}
+input {
+	font-size: large;
 }

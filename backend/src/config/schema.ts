@@ -38,7 +38,7 @@ export const inventories = pgTable(
 
 		isPublic: boolean("is_public").default(false).notNull(),
 
-		customIdPrefix: varchar("custom_id_prefix", { length: 50 }).default("ITEM-"),
+		customIdPrefix: varchar("custom_id_prefix", { length: 50 }).default(""),
 
 		version: integer("version").default(0).notNull(),
 

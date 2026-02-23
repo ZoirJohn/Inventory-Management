@@ -58,7 +58,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", isAuthenticated, async (req, res) => {
 	try {
-		const { title, description, isPublic, customIdPrefix, customString1State, customString1Name, customString2State, customString2Name, customString3State, customString3Name, customText1State, customText1Name, customText2State, customText2Name, customText3State, customText3Name, customInt1State, customInt1Name, customInt2State, customInt2Name, customInt3State, customInt3Name, customLink1State, customLink1Name, customLink2State, customLink2Name, customLink3State, customLink3Name, customBool1State, customBool1Name, customBool2State, customBool2Name, customBool3State, customBool3Name } = req.body;
+		const { title, description, isPublic, customIdPrefix, customString1Name, customString2Name, customString3Name, customText1Name, customText2Name, customText3Name, customInt1Name, customInt2Name, customInt3Name, customLink1Name, customLink2Name, customLink3Name, customBool1Name, customBool2Name, customBool3Name } = req.body;
 		if (!title) {
 			return res.status(400).json({ message: "Title is required" });
 		}
@@ -69,37 +69,37 @@ router.post("/", isAuthenticated, async (req, res) => {
 				title,
 				description,
 				isPublic: isPublic || false,
-				customIdPrefix: customIdPrefix || "ITEM-",
+				customIdPrefix: customIdPrefix || "",
 				creatorId: req.user!.id,
-				customString1State: customString1State || false,
+				customString1State: !!customString1Name,
 				customString1Name,
-				customString2State: customString2State || false,
+				customString2State: !!customString2Name,
 				customString2Name,
-				customString3State: customString3State || false,
+				customString3State: !!customString3Name,
 				customString3Name,
-				customText1State: customText1State || false,
+				customText1State: !!customText1Name,
 				customText1Name,
-				customText2State: customText2State || false,
+				customText2State: !!customText2Name,
 				customText2Name,
-				customText3State: customText3State || false,
+				customText3State: !!customText3Name,
 				customText3Name,
-				customInt1State: customInt1State || false,
+				customInt1State: !!customInt1Name,
 				customInt1Name,
-				customInt2State: customInt2State || false,
+				customInt2State: !!customInt2Name,
 				customInt2Name,
-				customInt3State: customInt3State || false,
+				customInt3State: !!customInt3Name,
 				customInt3Name,
-				customLink1State: customLink1State || false,
+				customLink1State: !!customLink1Name,
 				customLink1Name,
-				customLink2State: customLink2State || false,
+				customLink2State: !!customLink2Name,
 				customLink2Name,
-				customLink3State: customLink3State || false,
+				customLink3State: !!customLink3Name,
 				customLink3Name,
-				customBool1State: customBool1State || false,
+				customBool1State: !!customBool1Name,
 				customBool1Name,
-				customBool2State: customBool2State || false,
+				customBool2State: !!customBool2Name,
 				customBool2Name,
-				customBool3State: customBool3State || false,
+				customBool3State: !!customBool3Name,
 				customBool3Name,
 			})
 			.returning();
