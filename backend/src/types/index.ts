@@ -5,7 +5,6 @@ declare global {
 		interface User extends Omit<TUser, "password"> {}
 		interface Request {
 			inventory?: TInventory;
-			
 		}
 	}
 }

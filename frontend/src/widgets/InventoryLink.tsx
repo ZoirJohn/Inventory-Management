@@ -1,18 +1,15 @@
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { NavLink } from "react-router-dom";
 
-export default function InventoryLink() {
+export default function InventoryLink({ title, id }: { title: string; id: string }) {
 	return (
-		<NavLink to="1">
+		<NavLink to={id}>
 			<Card className="py-4">
 				<CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-					<p className="text-tiny uppercase font-bold">Daily Mix</p>
+					<p className="text-tiny uppercase font-bold">{title}</p>
 					<small className="text-default-500">12 Tracks</small>
-					<h4 className="font-bold text-large">Frontend Radio</h4>
 				</CardHeader>
-				<CardBody className="overflow-visible py-2">
-					<img alt="Card background" className="object-cover rounded-xl" src="https://heroui.com/images/hero-card-complete.jpeg" width={270} height={177} />
-				</CardBody>
+				<CardBody className="overflow-visible py-2"></CardBody>
 			</Card>
 		</NavLink>
 	);

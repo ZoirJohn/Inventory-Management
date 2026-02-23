@@ -2,6 +2,7 @@ import Auth from "@/pages/Auth";
 import CustomID from "@/pages/CustomID";
 import Home from "@/pages/Home";
 import Inventories from "@/pages/Inventories";
+import CreateInventory from "@/widgets/CreateInventory";
 import DataTable from "@/widgets/DataTable";
 import Inventory from "@/widgets/Inventory";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -10,9 +11,9 @@ function App() {
 	return (
 		<Routes>
 			<Route path="auth" element={<Auth />} />
-
 			<Route path="/" element={<Home />}>
 				<Route index element={<Navigate to="inventories" replace />} />
+				<Route path="create" element={<CreateInventory />} />
 
 				<Route path="inventories">
 					<Route index element={<Inventories />} />

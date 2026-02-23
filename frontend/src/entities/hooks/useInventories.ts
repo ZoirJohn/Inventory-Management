@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { client } from "../client";
 
-export default function useUser() {
-	const [user, setUser] = useState<any>({});
-	const [loading, setLoading] = useState<boolean>(true);
+export default function useInventories() {
+	const [inventories, setInventories] = useState([]);
+	const [loading, setLoading] = useState<boolean>();
 	const [error, setError] = useState<string>("");
+
 	useEffect(() => {
 		setLoading(true);
 		client
-			.GET_ME()
-			.then(setUser)
+			.GET_INVENTORIES()
+			.then(setInventories)
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
 	}, []);
 
-	return { user, loading, error };
+	return { inventories, loading, error };
 }

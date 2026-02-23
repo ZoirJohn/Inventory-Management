@@ -6,6 +6,8 @@ const API = {
 	LOGIN: BASE_URL + "/auth/login",
 	LOGOUT: BASE_URL + "/auth/logout",
 	ME: BASE_URL + "/auth/me",
+
+	INVENTORIES: BASE_URL + "/inventories",
 } as const;
 
 export const client = {
@@ -29,7 +31,50 @@ export const client = {
 	},
 	GET_ME: async () => {
 		try {
-			const res = await fetch(API.ME, { credentials: "include" }).then(res=>res);
+			const res = await fetch(API.ME, { credentials: "include" }).then((res) => res);
+			if (!res.ok) throw new Error("Unexpected error occured");
+			const data = res.json();
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error(error.message);
+			}
+		}
+	},
+	GET_INVENTORIES: async () => {
+		try {
+			const res = await fetch(API.INVENTORIES).then((res) => res);
+			if (!res.ok) throw new Error("Unexpected error occured");
+			const data = res.json();
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error(error.message);
+			}
+		}
+	},
+	GET_INVENTORY: async (inventoryId: string) => {
+		try {
+			const res = await fetch(API.INVENTORIES + "/" + inventoryId).then((res) => res);
+			if (!res.ok) throw new Error("Unexpected error occured");
+			const data = res.json();
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error(error.message);
+			}
+		}
+	},
+	CREATE_INVENTORY: async (body: any) => {
+		try {
+			const res = await fetch(API.INVENTORIES, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(body),
+				credentials: "include",
+			});
 			if (!res.ok) throw new Error("Unexpected error occured");
 			const data = res.json();
 			return data;
