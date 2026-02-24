@@ -11,7 +11,7 @@ export default function Inventories() {
 					{inventories.map(({ title, id }) => (
 						<Inventory title={title} id={id} key={id} />
 					))}
-					<NavLink to="/create" className="size-12 bg-gray-300 flex items-center justify-center text-3xl!">
+					<NavLink to="/create" className="size-12 bg-gray-300 flex items-center justify-center text-3xl! text-black">
 						+
 					</NavLink>
 				</div>

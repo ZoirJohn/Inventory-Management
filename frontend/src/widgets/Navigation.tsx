@@ -39,7 +39,7 @@ export default function Navigation() {
 				) : (
 					<div>
 						<NavLink to="auth">
-							<Button>Login</Button>
+							<Button className="bg-default">Login</Button>
 						</NavLink>
 					</div>
 				)}
