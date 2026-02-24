@@ -5,9 +5,13 @@ import Inventories from "@/pages/Inventories";
 import CreateInventory from "@/widgets/CreateInventory";
 import DataTable from "@/widgets/DataTable";
 import Inventory from "@/widgets/Inventory";
+import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
+	useEffect(() => {
+		if (localStorage.getItem("theme") == "dark") document.getElementById("root")?.classList.add("dark");
+	}, []);
 	return (
 		<Routes>
 			<Route path="auth" element={<Auth />} />
