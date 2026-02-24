@@ -3,6 +3,7 @@ import { Link } from "@heroui/link";
 import { NavLink } from "react-router-dom";
 import { User } from "@heroui/user";
 import useUser from "@/entities/hooks/useUser";
+import { changeTheme } from "@/entities/utils/changeTheme";
 
 const links = {
 	inventories: "Inventories",
@@ -37,10 +38,11 @@ export default function Navigation() {
 						name={user.name}
 					/>
 				) : (
-					<div>
+					<div className="flex gap-2">
 						<NavLink to="auth">
 							<Button className="bg-default">Login</Button>
 						</NavLink>
+						<Button onClick={changeTheme}>Change</Button>
 					</div>
 				)}
 			</div>

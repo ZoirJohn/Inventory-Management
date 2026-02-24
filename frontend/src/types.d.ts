@@ -19,3 +19,4 @@ type InventoryInput = {
 	customBool2Name?: string;
 	customBool3Name?: string;
 };
+type Theme = "dark" | "light";
