@@ -3,7 +3,6 @@ import { initReactI18next } from "react-i18next";
 
 export const internalization = i18next.use(initReactI18next).init({
 	lng: "ru",
-	debug: true,
 	resources: {
 		en: {
 			translation: {
