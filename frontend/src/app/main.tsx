@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "@/styles/globals.css";
 import { HeroUIProvider } from "@heroui/system";
-
+import "../entities/internalization"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>

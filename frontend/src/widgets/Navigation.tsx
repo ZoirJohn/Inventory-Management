@@ -4,24 +4,21 @@ import { NavLink } from "react-router-dom";
 import { User } from "@heroui/user";
 import useUser from "@/entities/hooks/useUser";
 import { changeTheme } from "@/entities/utils/changeTheme";
+import { useTranslation } from "react-i18next";
 
-const links = {
-	inventories: "Inventories",
-	settings: "Settings",
-	users: "Users",
-};
-type TLinkKeys = keyof typeof links;
+const links = ["inventories", "settings", "users"];
 
 export default function Navigation() {
+	const { t } = useTranslation();
 	const { user, loading } = useUser();
 	return (
 		<nav>
 			<div className="flex justify-between items-center h-16 container">
 				<ul className="flex gap-4">
-					{(Object.keys(links) as TLinkKeys[]).map((key, i) => {
+					{links.map((key, i) => {
 						return (
-							<NavLink to={key} key={key + i} className="text-lg!">
-								{links[key]}
+							<NavLink to={key} key={key + i} className="text-lg! capitalize">
+								{t(key)}
 							</NavLink>
 						);
 					})}
@@ -40,7 +37,7 @@ export default function Navigation() {
 				) : (
 					<div className="flex gap-2">
 						<NavLink to="auth">
-							<Button className="bg-default">Login</Button>
+							<Button className="bg-default capitalize">{t("login")}</Button>
 						</NavLink>
 						<Button onClick={changeTheme} className="min-w-0">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="size-4 fill-foreground dark:hidden">

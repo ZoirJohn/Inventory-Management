@@ -3,17 +3,19 @@ import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function CustomID() {
+	const { t } = useTranslation();
 	const elements: { key: RandomID; label: string }[] = [
-		{ key: "fixed", label: "Fixed" },
-		{ key: "20-bit-number", label: "20-bit random number" },
-		{ key: "32-bit-number", label: "32-bit random number" },
-		{ key: "6-digit-number", label: "6-digit random number" },
-		{ key: "9-digit-number", label: "9-digit random number" },
-		{ key: "guid", label: "GUID" },
-		{ key: "sequence", label: "Sequence" },
-		{ key: "date-time", label: "Date" },
+		{ key: "fixed", label: t("fixed") },
+		{ key: "20-bit-number", label: t("twentyBitRandom") },
+		{ key: "32-bit-number", label: t("thirtyTwoBitRandom") },
+		{ key: "6-digit-number", label: t("sixDigitRandom") },
+		{ key: "9-digit-number", label: t("nineDigitRandom") },
+		{ key: "guid", label: t("guid") },
+		{ key: "sequence", label: t("sequence") },
+		{ key: "date-time", label: t("date") },
 	];
 
 	const [selects, setSelects] = useState<{ key: RandomID; value: string }[]>([]);
@@ -73,7 +75,7 @@ export default function CustomID() {
 						])
 					}
 				>
-					Add
+					{t("add")}
 				</Button>
 			</div>
 		</section>
