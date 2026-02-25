@@ -4,14 +4,31 @@ import { Input } from "@heroui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { client } from "@/entities/client";
+import { useState } from "react";
 
 export default function CreateInventory() {
 	const { user, loading } = useUser();
 	const { register, handleSubmit } = useForm<InventoryInput>();
 	const { t } = useTranslation();
-	const onSubmit: SubmitHandler<InventoryInput> = (data) => console.log(data);
+	const [error, setError] = useState("");
+	const [success, setSuccess] = useState("");
+	const onSubmit: SubmitHandler<InventoryInput> = async (data) => {
+		try {
+			const res = await client.CREATE_INVENTORY(data);
+			if (!res.ok) {
+				setError(res.error.message);
+				throw new Error(res.error.message);
+			}
+			setSuccess(res.message);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error(error.message);
+			}
+		}
+	};
 
-	if (loading) return <h1>{t("loading")}</h1>;
+	if (loading) return <div className="container">{t("loading")}</div>;
 	if (!user.id) return <Navigate to="/" />;
 	return (
 		<div className="flex flex-col justify-center items-center gap-4 min-h-[calc(100vh-64px)] container">

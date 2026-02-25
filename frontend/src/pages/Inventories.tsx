@@ -8,8 +8,8 @@ export default function Inventories() {
 		<section>
 			<div className="container flex">
 				<div className="flex gap-4 items-center">
-					{inventories.map(({ title, id }) => (
-						<Inventory title={title} id={id} key={id} />
+					{inventories.map(({ title, description, id }) => (
+						<Inventory title={title} description={description} id={id} key={id} />
 					))}
 					<NavLink to="/create" className="size-12 bg-gray-300 flex items-center justify-center text-3xl! text-black">
 						+
