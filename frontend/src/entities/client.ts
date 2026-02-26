@@ -33,7 +33,7 @@ export const client = {
 		try {
 			const res = await fetch(API.ME, { credentials: "include" }).then((res) => res);
 			if (!res.ok) throw new Error("Unexpected error occured");
-			const data = res.json();
+			const data = await res.json();
 			return data;
 		} catch (error) {
 			if (error instanceof Error) {
@@ -45,7 +45,7 @@ export const client = {
 		try {
 			const res = await fetch(API.INVENTORIES).then((res) => res);
 			if (!res.ok) throw new Error("Unexpected error occured");
-			const data = res.json();
+			const data = await res.json();
 			return data;
 		} catch (error) {
 			if (error instanceof Error) {
@@ -57,7 +57,7 @@ export const client = {
 		try {
 			const res = await fetch(API.INVENTORIES + "/" + inventoryId).then((res) => res);
 			if (!res.ok) throw new Error("Unexpected error occured");
-			const data = res.json();
+			const data = await res.json();
 			return data;
 		} catch (error) {
 			if (error instanceof Error) {
@@ -75,12 +75,14 @@ export const client = {
 				body: JSON.stringify(body),
 				credentials: "include",
 			});
-			if (!res.ok) throw new Error("Unexpected error occured");
-			const data = res.json();
+			if (!res.ok) {
+				throw new Error(res.statusText);
+			}
+			const data = await res.json();
 			return data;
 		} catch (error) {
 			if (error instanceof Error) {
-				throw new Error(error.message);
+				throw error;
 			}
 		}
 	},

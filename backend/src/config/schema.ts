@@ -1,4 +1,4 @@
-import { boolean, integer, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid, varchar,index } from "drizzle-orm/pg-core";
 
 export const userRoleEnum = pgEnum("user_role", ["USER", "ADMIN"]);
 
@@ -95,7 +95,7 @@ export const inventories = pgTable(
 		updatedAt: timestamp("updated_at").defaultNow().notNull(),
 	},
 	(table) => ({
-		creatorIdx: uniqueIndex("inventory_creator_idx").on(table.creatorId),
+		creatorIdx: index("inventory_creator_idx").on(table.creatorId),
 	}),
 );
 export type TInventory = typeof inventories.$inferSelect;
