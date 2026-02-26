@@ -7,34 +7,44 @@ import DataTable from "@/widgets/DataTable";
 import Inventory from "@/widgets/Inventory";
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { UserProvider } from "@/shared/UserProvider";
+import useUser from "@/entities/hooks/useUser";
+import { useTranslation } from "react-i18next";
 
 function App() {
+	const { user } = useUser();
+	const { i18n } = useTranslation();
 	useEffect(() => {
-		if (localStorage.getItem("theme") == "dark") document.getElementById("root")?.classList.add("dark");
+		const theme = localStorage.getItem("theme");
+		const language = localStorage.getItem("lang");
+		if (theme == "dark") document.getElementById("root")?.classList.add("dark");
+		if (language) i18n.changeLanguage(localStorage.getItem("lang") || "en");
 	}, []);
 	return (
-		<Routes>
-			<Route path="auth" element={<Auth />} />
-			<Route path="/" element={<Home />}>
-				<Route index element={<Navigate to="inventories" replace />} />
-				<Route path="create" element={<CreateInventory />} />
+		<UserProvider.Provider value={{ user }}>
+			<Routes>
+				<Route path="auth" element={<Auth />} />
+				<Route path="/" element={<Home />}>
+					<Route index element={<Navigate to="inventories" replace />} />
+					<Route path="create" element={<CreateInventory />} />
 
-				<Route path="inventories">
-					<Route index element={<Inventories />} />
+					<Route path="inventories">
+						<Route index element={<Inventories />} />
 
-					<Route path=":inventoryId" element={<Inventory />}>
-						<Route index element={<Navigate to="items" replace />} />
-						<Route path="items" element={<DataTable />} />
-						<Route path="chat" element={<>Chat</>} />
-						<Route path="settings" element={<>Inventory Settings</>} />
-						<Route path="custom-id" element={<CustomID />} />
-						<Route path="fields" element={<>Fields Content</>} />
-						<Route path="access" element={<>Access Content</>} />
-						<Route path="stats" element={<>Stats Content</>} />
+						<Route path=":inventoryId" element={<Inventory />}>
+							<Route index element={<Navigate to="items" replace />} />
+							<Route path="items" element={<DataTable />} />
+							<Route path="chat" element={<>Chat</>} />
+							<Route path="settings" element={<>Inventory Settings</>} />
+							<Route path="custom-id" element={<CustomID />} />
+							<Route path="fields" element={<>Fields Content</>} />
+							<Route path="access" element={<>Access Content</>} />
+							<Route path="stats" element={<>Stats Content</>} />
+						</Route>
 					</Route>
 				</Route>
-			</Route>
-		</Routes>
+			</Routes>
+		</UserProvider.Provider>
 	);
 }
 

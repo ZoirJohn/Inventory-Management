@@ -19,4 +19,17 @@ type InventoryInput = {
 	customBool2Name?: string;
 	customBool3Name?: string;
 };
+
 type Theme = "dark" | "light";
+
+type UserType = {
+	id: string;
+	name: string;
+	email: string;
+	role: "USER" | "ADMIN";
+	blocked: boolean;
+	googleId: string | null;
+	facebookId: string | null;
+	createdAt: string;
+	updatedAt: string;
+};

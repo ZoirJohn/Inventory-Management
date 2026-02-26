@@ -3,15 +3,12 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "@/styles/globals.css";
-import { HeroUIProvider } from "@heroui/system";
-import "../entities/internalization"
+import "../entities/internalization";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<HeroUIProvider disableAnimation>
 				<App />
-			</HeroUIProvider>
 		</BrowserRouter>
 	</React.StrictMode>,
 );

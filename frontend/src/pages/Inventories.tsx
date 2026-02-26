@@ -4,10 +4,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 export default function Inventories() {
 	const { inventories } = useInventories();
-	console.log(inventories);
-
 	return (
-		<section>
+		<section className="pt-10">
 			<div className="container flex">
 				<div className="flex gap-4 items-center flex-wrap">
 					{inventories.map(({ title, description, id, creatorName, createdAt }) => (

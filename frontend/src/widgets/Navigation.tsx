@@ -2,16 +2,17 @@ import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { NavLink } from "react-router-dom";
 import { User } from "@heroui/user";
-import useUser from "@/entities/hooks/useUser";
 import { changeTheme } from "@/entities/utils/changeTheme";
 import { useTranslation } from "react-i18next";
 import LangSelect from "./LangSelect";
+import { useContext } from "react";
+import { UserProvider } from "@/shared/UserProvider";
 
 const links = ["inventories", "settings", "users"];
 
 export default function Navigation() {
 	const { t, i18n } = useTranslation();
-	const { user } = useUser();
+	const { user } = useContext(UserProvider);
 	return (
 		<nav>
 			<div className="flex items-center gap-4 h-16 container">
@@ -25,7 +26,7 @@ export default function Navigation() {
 					})}
 				</ul>
 
-				{user.email ? (
+				{user ? (
 					<User
 						description={
 							<Link isExternal href={"mailto:" + user.email} size="sm">
