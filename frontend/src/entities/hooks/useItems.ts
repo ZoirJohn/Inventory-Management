@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 
 import { client } from "../client";
 
-export default function useUser() {
-	const [user, setUser] = useState<TUser | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+export default function useItems(inventoryId: string) {
+	const [items, setItems] = useState([]);
+	const [loading, setLoading] = useState<boolean>();
 	const [error, setError] = useState<string>("");
 
 	useEffect(() => {
 		setLoading(true);
 		client
-			.GET_ME()
-			.then(setUser)
+			.GET_ITEMS(inventoryId)
+			.then(setItems)
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
 	}, []);
 
-	return { user, loading, error };
+	return { items, loading, error };
 }

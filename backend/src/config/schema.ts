@@ -1,4 +1,4 @@
-import { boolean, integer, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid, varchar,index } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid, varchar, index } from "drizzle-orm/pg-core";
 
 export const userRoleEnum = pgEnum("user_role", ["USER", "ADMIN"]);
 
@@ -36,7 +36,7 @@ export const inventories = pgTable(
 		title: varchar("title", { length: 255 }).notNull(),
 		description: text("description"),
 
-		isPublic: boolean("is_public").default(false).notNull(),
+		isPublic: boolean("is_public").default(true).notNull(),
 
 		customIdPrefix: varchar("custom_id_prefix", { length: 50 }).default(""),
 
