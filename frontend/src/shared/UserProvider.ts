@@ -1,3 +1,5 @@
 import { createContext } from "react";
 
-export const UserProvider = createContext<{ user: UserType | null }>({ user: null });
+export const UserProvider = createContext<{ user: TUser | null }>({
+  user: null,
+});
