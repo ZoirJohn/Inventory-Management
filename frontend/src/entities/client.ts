@@ -71,7 +71,7 @@ export const client = {
 			}
 		}
 	},
-	CREATE_INVENTORY: async (body: any) => {
+	CREATE_INVENTORY: async (body: unknown) => {
 		try {
 			const res = await fetch(API.INVENTORIES, {
 				method: "POST",

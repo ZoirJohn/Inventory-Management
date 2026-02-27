@@ -38,9 +38,8 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", (req, res, next) => {
-	passport.authenticate("local", (err: any, user: any, info: any) => {
+	passport.authenticate("local", (err: Error, user: Express.User, info: { message: string }) => {
 		if (err) return res.status(500).json({ message: "Login error" });
-
 		if (!user) {
 			return res.status(401).json({ message: info?.message || "Login failed" });
 		}
@@ -79,7 +78,7 @@ router.get(
 );
 
 router.get("/me", isAuthenticated, (req, res) => {
-	const { password: _, ...safeUser } = req.user as any;
+	const { password: _, ...safeUser } = req.user as Express.User;
 	res.json(safeUser);
 });
 

@@ -15,7 +15,7 @@ export default function DataTable() {
 	const tableRef = useRef<HTMLTableElement>(null);
 
 	const { register, handleSubmit } = useForm();
-	const onSubmit: SubmitHandler<any> = (data) => {
+	const onSubmit: SubmitHandler<unknown> = (data) => {
 		console.log(data);
 		setIsUserAddingItem(false);
 	};
@@ -26,8 +26,6 @@ export default function DataTable() {
 			key: i,
 			label: field[0].replace("State", "Name"),
 		}));
-
-	const rows = items.map((_, i) => ({ id: i }));
 
 	return (
 		<div className="flex flex-col items-center gap-4">
@@ -45,8 +43,8 @@ export default function DataTable() {
 						</TableColumn>
 					)}
 				</TableHeader>
-				<TableBody emptyContent={"No rows to display."} items={rows}>
-					{(item) => <TableRow key={item.id}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>}
+				<TableBody emptyContent={"No rows to display."} items={items}>
+					{(item) => <TableRow key={item}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>}
 				</TableBody>
 			</Table>
 

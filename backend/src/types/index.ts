@@ -2,7 +2,8 @@ import type { TUser,TInventory } from "../config/schema.ts";
 
 declare global {
 	namespace Express {
-		interface User extends Omit<TUser, "password"> {}
+		interface SafeUser extends TUser {}
+		interface User extends TUser {}
 		interface Request {
 			inventory?: TInventory;
 		}

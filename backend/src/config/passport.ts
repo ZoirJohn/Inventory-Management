@@ -4,11 +4,11 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 import { db } from "./database.ts";
-import { users } from "./schema.ts";
+import {  users } from "./schema.ts";
 import { eq } from "drizzle-orm";
 
-passport.serializeUser((user: any, done) => {
-	done(null, user.id);
+passport.serializeUser((user, done) => {
+	done(null, user?.id);
 });
 
 passport.deserializeUser(async (id: string, done) => {
