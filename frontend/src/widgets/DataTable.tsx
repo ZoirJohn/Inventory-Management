@@ -6,6 +6,7 @@ import { Input } from "@heroui/input";
 import { useState, useRef } from "react";
 import { Button } from "@heroui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { client } from "@/entities/client";
 
 export default function DataTable() {
 	const { inventoryId } = useParams();
@@ -15,8 +16,8 @@ export default function DataTable() {
 	const tableRef = useRef<HTMLTableElement>(null);
 
 	const { register, handleSubmit } = useForm();
-	const onSubmit: SubmitHandler<unknown> = (data) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<unknown> = async (data: unknown) => {
+		await client.CREATE_ITEMS(inventoryId as string, data as object);
 		setIsUserAddingItem(false);
 	};
 
@@ -27,6 +28,7 @@ export default function DataTable() {
 			label: field[0].replace("State", "Name"),
 		}));
 
+	console.log(columns, items);
 	return (
 		<div className="flex flex-col items-center gap-4">
 			<Table
@@ -44,7 +46,15 @@ export default function DataTable() {
 					)}
 				</TableHeader>
 				<TableBody emptyContent={"No rows to display."} items={items}>
-					{(item) => <TableRow key={item}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>}
+					{items.map((item, i) => {
+						return (
+							<TableRow>
+								{columns.map((col, i) => {
+									return <TableCell>{item[col.label.replace("Name", "")]}</TableCell>;
+								})}
+							</TableRow>
+						);
+					})}
 				</TableBody>
 			</Table>
 

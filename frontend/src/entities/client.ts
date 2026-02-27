@@ -1,3 +1,5 @@
+import { itemFields } from "./itemFields";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API = {
 	AUTH_GOOGLE: BASE_URL + "/auth/google",
@@ -96,9 +98,31 @@ export const client = {
 	},
 	GET_ITEMS: async (inventoryId: string) => {
 		try {
-			const res = await fetch(API.INVENTORIES + '/'+inventoryId + "/items");
+			const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items");
 			if (!res.ok) throw new Error(res.statusText);
 			const data = await res.json();
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw error;
+			}
+		}
+	},
+	CREATE_ITEMS: async (inventoryId: string, body: object) => {
+		try {
+			const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ ...itemFields, ...body }),
+				credentials: "include",
+			});
+			if (!res.ok) {
+				throw new Error(res.statusText);
+			}
+			const data = await res.json();
+
 			return data;
 		} catch (error) {
 			if (error instanceof Error) {

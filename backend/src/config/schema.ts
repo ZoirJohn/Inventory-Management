@@ -108,7 +108,7 @@ export const items = pgTable(
 		inventoryId: uuid("inventory_id")
 			.notNull()
 			.references(() => inventories.id, { onDelete: "cascade" }),
-		customId: varchar("custom_id", { length: 255 }).notNull(),
+		customId: varchar("custom_id", { length: 255 }),
 
 		customString1: varchar("custom_string1", { length: 500 }),
 		customString2: varchar("custom_string2", { length: 500 }),
