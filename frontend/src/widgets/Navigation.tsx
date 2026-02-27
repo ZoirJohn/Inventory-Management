@@ -10,7 +10,7 @@ import LangSelect from "./LangSelect";
 import { changeTheme } from "@/entities/utils/changeTheme";
 import { UserProvider } from "@/shared/UserProvider";
 
-const links = ["inventories", "settings", "users"];
+const links = ["inventories", "users"];
 
 export default function Navigation() {
   const { t, i18n } = useTranslation();

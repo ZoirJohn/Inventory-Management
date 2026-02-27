@@ -11,6 +11,7 @@ import DataTable from "@/widgets/DataTable";
 import Inventory from "@/widgets/Inventory";
 import { UserProvider } from "@/shared/UserProvider";
 import useUser from "@/entities/hooks/useUser";
+import Users from "@/pages/Users";
 
 function App() {
 	const { user } = useUser();
@@ -30,6 +31,7 @@ function App() {
 				<Route element={<Auth />} path="auth" />
 				<Route element={<Home />} path="/">
 					<Route index element={<Navigate replace to="inventories" />} />
+					<Route element={<Users />} path="users" />
 					<Route element={<CreateInventory />} path="create" />
 
 					<Route path="inventories">
