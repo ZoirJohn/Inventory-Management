@@ -17,6 +17,9 @@ importers:
       '@heroui/card':
         specifier: ^2.2.27
         version: 2.2.27(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@heroui/chip':
+        specifier: ^2.2.24
+        version: 2.2.24(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@heroui/code':
         specifier: 2.2.24
         version: 2.2.24(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -35,6 +38,9 @@ importers:
       '@heroui/navbar':
         specifier: 2.2.29
         version: 2.2.29(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@heroui/pagination':
+        specifier: ^2.2.26
+        version: 2.2.26(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@heroui/select':
         specifier: ^2.4.32
         version: 2.4.32(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -535,6 +541,14 @@ packages:
       react: '>=18 || >=19.0.0-rc.0'
       react-dom: '>=18 || >=19.0.0-rc.0'
 
+  '@heroui/chip@2.2.24':
+    resolution: {integrity: sha512-QdJPQroHKGO+ZgZVlnhlhnAwE46Sm23UlHuFiW6cFIRVuARxHo/K+M/KXpjUEAP659EOtMyS1CzIVhDzuqHuSg==}
+    peerDependencies:
+      '@heroui/system': '>=2.4.18'
+      '@heroui/theme': '>=2.4.24'
+      react: '>=18 || >=19.0.0-rc.0'
+      react-dom: '>=18 || >=19.0.0-rc.0'
+
   '@heroui/code@2.2.24':
     resolution: {integrity: sha512-GfVVkhCgnyYP3rp1951dOdM6nQmMlNmKL4t8Vs+tUWDt6AKSrP9bjWQcgl/sIpcRe0/Tm0LrVAg0qkKlhKJQAg==}
     peerDependencies:
@@ -623,6 +637,14 @@ packages:
       '@heroui/system': '>=2.4.18'
       '@heroui/theme': '>=2.4.24'
       framer-motion: '>=11.5.6 || >=12.0.0-alpha.1'
+      react: '>=18 || >=19.0.0-rc.0'
+      react-dom: '>=18 || >=19.0.0-rc.0'
+
+  '@heroui/pagination@2.2.26':
+    resolution: {integrity: sha512-Ta70RAMo223BDFw3fAvYew1PauQ+b38Xa0zWnj5mkkrYrLXk7sjomunNtlUFPKkr0B8Dpuu67tp9a8AlmI1z8A==}
+    peerDependencies:
+      '@heroui/system': '>=2.4.18'
+      '@heroui/theme': '>=2.4.24'
       react: '>=18 || >=19.0.0-rc.0'
       react-dom: '>=18 || >=19.0.0-rc.0'
 
@@ -794,6 +816,11 @@ packages:
     peerDependencies:
       react: '>=18 || >=19.0.0-rc.0'
 
+  '@heroui/use-intersection-observer@2.2.14':
+    resolution: {integrity: sha512-qYJeMk4cTsF+xIckRctazCgWQ4BVOpJu+bhhkB1NrN+MItx19Lcb7ksOqMdN5AiSf85HzDcAEPIQ9w9RBlt5sg==}
+    peerDependencies:
+      react: '>=18 || >=19.0.0-rc.0'
+
   '@heroui/use-is-mobile@2.2.12':
     resolution: {integrity: sha512-2UKa4v1xbvFwerWKoMTrg4q9ZfP9MVIVfCl1a7JuKQlXq3jcyV6z1as5bZ41pCsTOT+wUVOFnlr6rzzQwT9ZOA==}
     peerDependencies:
@@ -806,6 +833,11 @@ packages:
 
   '@heroui/use-measure@2.1.8':
     resolution: {integrity: sha512-GjT9tIgluqYMZWfAX6+FFdRQBqyHeuqUMGzAXMTH9kBXHU0U5C5XU2c8WFORkNDoZIg1h13h1QdV+Vy4LE1dEA==}
+    peerDependencies:
+      react: '>=18 || >=19.0.0-rc.0'
+
+  '@heroui/use-pagination@2.2.19':
+    resolution: {integrity: sha512-0VLyxge+rPBexK7xoLgPwCC8ngh9vIgHEtS+sRvulcEy4grG9EvZWUfMpMeiboFc5Ku2l5u+D9jYkaV06EY4Rw==}
     peerDependencies:
       react: '>=18 || >=19.0.0-rc.0'
 
@@ -3417,6 +3449,18 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@heroui/chip@2.2.24(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@heroui/react-utils': 2.1.14(react@18.3.1)
+      '@heroui/shared-icons': 2.1.10(react@18.3.1)
+      '@heroui/shared-utils': 2.1.12
+      '@heroui/system': 2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@heroui/theme': 2.4.26(tailwindcss@4.1.11)
+      '@react-aria/focus': 3.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/interactions': 3.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@heroui/code@2.2.24(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@heroui/react-utils': 2.1.14(react@18.3.1)
@@ -3579,6 +3623,23 @@ snapshots:
       framer-motion: 11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  '@heroui/pagination@2.2.26(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@heroui/react-utils': 2.1.14(react@18.3.1)
+      '@heroui/shared-icons': 2.1.10(react@18.3.1)
+      '@heroui/shared-utils': 2.1.12
+      '@heroui/system': 2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@heroui/theme': 2.4.26(tailwindcss@4.1.11)
+      '@heroui/use-intersection-observer': 2.2.14(react@18.3.1)
+      '@heroui/use-pagination': 2.2.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/focus': 3.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/i18n': 3.12.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/interactions': 3.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/utils': 3.32.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      scroll-into-view-if-needed: 3.0.10
 
   '@heroui/popover@2.3.31(@heroui/system@2.4.27(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@heroui/theme@2.4.26(tailwindcss@4.1.11))(framer-motion@11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -3866,6 +3927,10 @@ snapshots:
       '@heroui/use-safe-layout-effect': 2.1.8(react@18.3.1)
       react: 18.3.1
 
+  '@heroui/use-intersection-observer@2.2.14(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+
   '@heroui/use-is-mobile@2.2.12(react@18.3.1)':
     dependencies:
       '@react-aria/ssr': 3.9.10(react@18.3.1)
@@ -3878,6 +3943,14 @@ snapshots:
   '@heroui/use-measure@2.1.8(react@18.3.1)':
     dependencies:
       react: 18.3.1
+
+  '@heroui/use-pagination@2.2.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@heroui/shared-utils': 2.1.12
+      '@react-aria/i18n': 3.12.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+    transitivePeerDependencies:
+      - react-dom
 
   '@heroui/use-resize@2.1.8(react@18.3.1)':
     dependencies:

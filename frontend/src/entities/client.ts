@@ -10,6 +10,7 @@ const API = {
 	ME: BASE_URL + "/auth/me",
 
 	INVENTORIES: BASE_URL + "/inventories",
+	USERS: BASE_URL + "/users",
 } as const;
 
 export const client = {
@@ -115,7 +116,24 @@ export const client = {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({  ...body }),
+				body: JSON.stringify({ ...body }),
+				credentials: "include",
+			});
+			if (!res.ok) {
+				throw new Error(res.statusText);
+			}
+			const data = await res.json();
+
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw error;
+			}
+		}
+	},
+	GET_USERS: async () => {
+		try {
+			const res = await fetch(API.USERS, {
 				credentials: "include",
 			});
 			if (!res.ok) {

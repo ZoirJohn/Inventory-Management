@@ -1,3 +1,7 @@
+import UsersTable from "@/widgets/UsersTable";
+
 export default function Users() {
-	return <h1>Here are the users</h1>
+	return <div className="container">
+		<UsersTable/>
+	</div>
 }

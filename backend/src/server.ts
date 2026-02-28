@@ -6,6 +6,7 @@ import passport from "./config/passport.ts";
 import authRoutes from "./routes/auth.routes.ts";
 import inventoryRoutes from "./routes/inventory.routes.ts";
 import itemsRoutes from "./routes/items.routes.ts";
+import usersRoutes from "./routes/users.routes.ts";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -36,6 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", usersRoutes);
 app.use("/api/inventories", inventoryRoutes);
 app.use("/api", itemsRoutes);
 

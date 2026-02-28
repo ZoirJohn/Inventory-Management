@@ -6,10 +6,12 @@ import { Input } from "@heroui/input";
 import { useState, useRef } from "react";
 import { Button } from "@heroui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { client } from "@/entities/client";
 import getInputType from "@/entities/utils/getInputType";
 
 export default function DataTable() {
+	const { t } = useTranslation();
 	const { inventoryId } = useParams();
 	const { inventory } = useInventory(inventoryId as string);
 	const { items, clear } = useItems(inventoryId as string);
@@ -46,12 +48,12 @@ export default function DataTable() {
 						</TableColumn>
 					)}
 				</TableHeader>
-				<TableBody emptyContent={"No rows to display."} items={items}>
+				<TableBody emptyContent={t("noRowsToDisplay")} items={items}>
 					{items.map((item: TItem) => {
 						return (
 							<TableRow key={item.id}>
 								{columns.map((col) => {
-									return <TableCell key={col.label}>{!col.label.includes("Bool") ? item[col.label.replace("Name", "") as keyof TItem] : item[col.label.replace("Name", "") as keyof TItem] ? "Yes" : "No"}</TableCell>;
+									return <TableCell key={col.label}>{!col.label.includes("Bool") ? item[col.label.replace("Name", "") as keyof TItem] : item[col.label.replace("Name", "") as keyof TItem] ? t("yes") : t("no")}</TableCell>;
 								})}
 							</TableRow>
 						);
@@ -67,14 +69,14 @@ export default function DataTable() {
 				</form>
 			)}
 
-			{!isUserAddingItem && <Button onClick={() => setIsUserAddingItem(true)}>Add item</Button>}
+			{!isUserAddingItem && <Button onClick={() => setIsUserAddingItem(true)}>{t("addItem")}</Button>}
 			{isUserAddingItem && (
 				<div className="flex gap-2">
 					<Button type="submit" form="itemCreator" color="primary">
-						Submit
+						{t("submit")}
 					</Button>
 					<Button variant="flat" onClick={() => setIsUserAddingItem(false)}>
-						Cancel
+						{t("cancel")}
 					</Button>
 				</div>
 			)}
