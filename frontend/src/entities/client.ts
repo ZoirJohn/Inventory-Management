@@ -1,4 +1,4 @@
-import { itemFields } from "./itemFields";
+// import { itemFields } from "./itemFields";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API = {
@@ -115,7 +115,7 @@ export const client = {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ ...itemFields, ...body }),
+				body: JSON.stringify({  ...body }),
 				credentials: "include",
 			});
 			if (!res.ok) {

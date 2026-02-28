@@ -14,7 +14,7 @@ export default function useItems(inventoryId: string) {
 			.then(setItems)
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
-	}, []);
+	}, [items]);
 
-	return { items, loading, error };
+	return { items, loading, error, clear: () => setItems([]) };
 }

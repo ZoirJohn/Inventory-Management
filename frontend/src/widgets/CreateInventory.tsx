@@ -42,7 +42,7 @@ export default function CreateInventory() {
     }, 5000);
   }, [success]);
   if (loading) return <div className="container">{t("loading")}</div>;
-  if (!user.id) return <Navigate to="/" />;
+  if (!user) return <Navigate to="/" />;
 
   return (
     <>

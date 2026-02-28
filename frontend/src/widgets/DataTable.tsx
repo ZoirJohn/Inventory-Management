@@ -1,4 +1,4 @@
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from "@heroui/table";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/table";
 import { useParams } from "react-router-dom";
 import useInventory from "@/entities/hooks/useInventory";
 import useItems from "@/entities/hooks/useItems";
@@ -7,17 +7,19 @@ import { useState, useRef } from "react";
 import { Button } from "@heroui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { client } from "@/entities/client";
+import getInputType from "@/entities/utils/getInputType";
 
 export default function DataTable() {
 	const { inventoryId } = useParams();
 	const { inventory } = useInventory(inventoryId as string);
-	const { items } = useItems(inventoryId as string);
+	const { items, clear } = useItems(inventoryId as string);
 	const [isUserAddingItem, setIsUserAddingItem] = useState<boolean>(false);
 	const tableRef = useRef<HTMLTableElement>(null);
 
 	const { register, handleSubmit } = useForm();
 	const onSubmit: SubmitHandler<unknown> = async (data: unknown) => {
 		await client.CREATE_ITEMS(inventoryId as string, data as object);
+		clear();
 		setIsUserAddingItem(false);
 	};
 
@@ -28,7 +30,6 @@ export default function DataTable() {
 			label: field[0].replace("State", "Name"),
 		}));
 
-	console.log(columns, items);
 	return (
 		<div className="flex flex-col items-center gap-4">
 			<Table
@@ -46,11 +47,11 @@ export default function DataTable() {
 					)}
 				</TableHeader>
 				<TableBody emptyContent={"No rows to display."} items={items}>
-					{items.map((item, i) => {
+					{items.map((item: TItem) => {
 						return (
-							<TableRow>
-								{columns.map((col, i) => {
-									return <TableCell>{item[col.label.replace("Name", "")]}</TableCell>;
+							<TableRow key={item.id}>
+								{columns.map((col) => {
+									return <TableCell key={col.label}>{!col.label.includes("Bool") ? item[col.label.replace("Name", "") as keyof TItem] : item[col.label.replace("Name", "") as keyof TItem] ? "Yes" : "No"}</TableCell>;
 								})}
 							</TableRow>
 						);
@@ -59,9 +60,9 @@ export default function DataTable() {
 			</Table>
 
 			{isUserAddingItem && (
-				<form id="itemCreator" onSubmit={handleSubmit(onSubmit)} className="w-full grid gap-2" style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}>
+				<form id="itemCreator" onSubmit={handleSubmit(onSubmit)} className="gap-2 grid w-full" style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}>
 					{columns.map((col) => (
-						<Input key={col.key} placeholder={inventory[col.label]} {...register(col.label.replace("Name", ""), { required: true })} />
+						<Input type={getInputType(col.label)} key={col.key} placeholder={inventory[col.label]} {...register(col.label.replace("Name", ""), { required: !col.label.includes("Bool") })} />
 					))}
 				</form>
 			)}
