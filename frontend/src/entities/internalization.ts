@@ -55,6 +55,7 @@ export const internalization = i18next.use(initReactI18next).init({
 				russian: "Russian",
 				actions: "Actions",
 				role: "Role",
+				cancel: "Cancel",
 			},
 		},
 		ru: {

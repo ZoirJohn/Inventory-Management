@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useInventory from "@/entities/hooks/useInventory";
 import useItems from "@/entities/hooks/useItems";
 import { Input } from "@heroui/input";
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useContext } from "react";
 import { Button } from "@heroui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -11,8 +11,10 @@ import { client } from "@/entities/client";
 import getInputType from "@/entities/utils/getInputType";
 import { t } from "i18next";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { UserProvider } from "@/shared/UserProvider";
 
 export default function DataTable() {
+	const { user } = useContext(UserProvider);
 	const { t } = useTranslation();
 	const { inventoryId } = useParams();
 	const { inventory } = useInventory(inventoryId as string);
@@ -75,7 +77,7 @@ export default function DataTable() {
 				</TableBody>
 			</Table>
 
-			{isUserAddingItem && (
+			{user && isUserAddingItem && (
 				<form id="itemCreator" onSubmit={handleSubmit(onSubmit)} className="gap-2 grid w-full" style={{ gridTemplateColumns: `repeat(${columns.length - 1}, 1fr)` }}>
 					{columns.slice(0, columns.length - 1).map((col) => {
 						return <Input type={getInputType(col.label)} className="w-full" key={col.key} placeholder={inventory[col.label]} {...register(col.label.replace("Name", ""), { required: !col.label.includes("Bool") })} />;
@@ -83,8 +85,8 @@ export default function DataTable() {
 				</form>
 			)}
 
-			{!isUserAddingItem && <Button onClick={() => setIsUserAddingItem(true)}>{t("addItem")}</Button>}
-			{isUserAddingItem && (
+			{user && !isUserAddingItem && <Button onClick={() => setIsUserAddingItem(true)}>{t("addItem")}</Button>}
+			{user && isUserAddingItem && (
 				<div className="flex gap-2">
 					<Button type="submit" form="itemCreator" color="primary">
 						{t("submit")}
