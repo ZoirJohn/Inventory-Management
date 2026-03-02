@@ -81,6 +81,7 @@ export const client = {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(body),
+				credentials:"include"
 			});
 
 			if (!res.ok) {

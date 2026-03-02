@@ -40,12 +40,7 @@ function App() {
 						<Route element={<Inventory />} path=":inventoryId">
 							<Route index element={<Navigate replace to="items" />} />
 							<Route element={<DataTable />} path="items" />
-							<Route element={<>Chat</>} path="chat" />
-							<Route element={<>Inventory Settings</>} path="settings" />
 							<Route element={<CustomID />} path="custom-id" />
-							<Route element={<>Fields Content</>} path="fields" />
-							<Route element={<>Access Content</>} path="access" />
-							<Route element={<>Stats Content</>} path="stats" />
 						</Route>
 					</Route>
 				</Route>
