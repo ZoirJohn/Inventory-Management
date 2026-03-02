@@ -15,6 +15,7 @@ const links = ["inventories", "users"];
 export default function Navigation() {
   const { t, i18n } = useTranslation();
   const { user } = useContext(UserProvider);
+
   return (
     <nav>
       <div className="flex items-center gap-4 h-16 container">

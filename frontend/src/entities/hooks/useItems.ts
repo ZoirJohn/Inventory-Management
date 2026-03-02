@@ -3,22 +3,22 @@ import { useEffect, useState } from "react";
 import { client } from "../client";
 
 export default function useItems(inventoryId: string) {
-	const [items, setItems] = useState([]);
-	const [loading, setLoading] = useState<boolean>();
-	const [error, setError] = useState<string>("");
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState<boolean>();
+  const [error, setError] = useState<string>("");
 
-	function fetchItems(inventoryId: string) {
-		client
-			.GET_ITEMS(inventoryId)
-			.then(setItems)
-			.catch((error) => setError(error.message))
-			.finally(() => setLoading(false));
-	}
+  function fetchItems(inventoryId: string) {
+    client
+      .GET_ITEMS(inventoryId)
+      .then(setItems)
+      .catch((error) => setError(error.message))
+      .finally(() => setLoading(false));
+  }
 
-	useEffect(() => {
-		setLoading(true);
-		fetchItems(inventoryId);
-	}, []);
+  useEffect(() => {
+    setLoading(true);
+    fetchItems(inventoryId);
+  }, []);
 
-	return { items, loading, error, refetch: fetchItems };
+  return { items, loading, error, refetch: fetchItems };
 }
