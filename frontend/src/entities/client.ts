@@ -33,7 +33,7 @@ export const client = {
 	},
 	GET_ME: async () => {
 		try {
-			const res = await fetch(API.ME,{}).then((res) => res);
+			const res = await fetch(API.ME,{credentials:"include"}).then((res) => res);
 
 			if (!res.ok) throw new Error(res.statusText);
 			const data = await res.json();
@@ -107,7 +107,7 @@ export const client = {
 			}
 		}
 	},
-	CREATE_ITEMS: async (inventoryId: string, body: object) => {
+	CREATE_ITEM: async (inventoryId: string, body: object) => {
 		try {
 			const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items", {
 				method: "POST",
@@ -115,6 +115,7 @@ export const client = {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ ...body }),
+				credentials:"include"
 			});
 			if (!res.ok) {
 				throw new Error(res.statusText);
@@ -128,9 +129,9 @@ export const client = {
 			}
 		}
 	},
-	DELETE_ITEMS: async (itemId: string) => {
+	DELETE_ITEM: async (itemId: string) => {
 		try {
-			const res = await fetch(API.INVENTORIES + "/" + itemId, { method: "DELETE" });
+			const res = await fetch(API.ITEMS + "/" + itemId, { method: "DELETE",credentials:"include" });
 			if (!res.ok) {
 				throw new Error(res.statusText);
 			}

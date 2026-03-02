@@ -16,17 +16,21 @@ export default function DataTable() {
 	const { t } = useTranslation();
 	const { inventoryId } = useParams();
 	const { inventory } = useInventory(inventoryId as string);
-	const { items, clear } = useItems(inventoryId as string);
+	const { items, refetch } = useItems(inventoryId as string);
 	const [isUserAddingItem, setIsUserAddingItem] = useState<boolean>(false);
 	const tableRef = useRef<HTMLTableElement>(null);
 
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, reset } = useForm();
 	const onSubmit: SubmitHandler<unknown> = async (data: unknown) => {
-		await client.CREATE_ITEMS(inventoryId as string, data as object);
-		clear();
+		await client.CREATE_ITEM(inventoryId as string, data as object);
+		refetch(inventoryId as string);
+		reset();
 		setIsUserAddingItem(false);
 	};
-
+	const onDelete = async (itemId: string) => {
+		await client.DELETE_ITEM(itemId);
+		refetch(inventoryId as string);
+	};
 	const columns = useMemo(
 		() => [
 			...Object.entries(inventory)
@@ -39,6 +43,7 @@ export default function DataTable() {
 		],
 		[inventory],
 	);
+
 	return (
 		<div className="flex flex-col items-center gap-4">
 			<Table
@@ -62,7 +67,7 @@ export default function DataTable() {
 						return (
 							<TableRow key={item.id}>
 								{columns.map((col) => {
-									return <TableCell key={col.label}>{renderCell(item, col)}</TableCell>;
+									return <TableCell key={col.label}>{renderCell(item, col, () => onDelete(item.id))}</TableCell>;
 								})}
 							</TableRow>
 						);
@@ -71,10 +76,10 @@ export default function DataTable() {
 			</Table>
 
 			{isUserAddingItem && (
-				<form id="itemCreator" onSubmit={handleSubmit(onSubmit)} className="gap-2 grid w-full" style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}>
-					{columns.map((col) => (
-						<Input type={getInputType(col.label)} key={col.key} placeholder={inventory[col.label]} {...register(col.label.replace("Name", ""), { required: !col.label.includes("Bool") })} />
-					))}
+				<form id="itemCreator" onSubmit={handleSubmit(onSubmit)} className="gap-2 grid w-full" style={{ gridTemplateColumns: `repeat(${columns.length - 1}, 1fr)` }}>
+					{columns.slice(0, columns.length - 1).map((col) => {
+						return <Input type={getInputType(col.label)} className="w-full" key={col.key} placeholder={inventory[col.label]} {...register(col.label.replace("Name", ""), { required: !col.label.includes("Bool") })} />;
+					})}
 				</form>
 			)}
 
@@ -93,17 +98,17 @@ export default function DataTable() {
 	);
 }
 
-function renderCell(item: TItem, col: { key: string | number; label: string }) {
+function renderCell(item: TItem, col: { key: string | number; label: string }, onDelete: () => void) {
 	if (col.label.includes("Bool")) {
 		return item[col.label.replace("Name", "") as keyof TItem] ? t("yes") : t("no");
 	} else if (col.key == "actions") {
-		return <DropdownButton />;
+		return <DropdownButton onDelete={onDelete} />;
 	} else {
 		return item[col.label.replace("Name", "") as keyof TItem];
 	}
 }
 
-function DropdownButton() {
+function DropdownButton({ onDelete }: { onDelete: () => void }) {
 	return (
 		<Dropdown>
 			<DropdownTrigger className="cursor-pointer">
@@ -113,7 +118,7 @@ function DropdownButton() {
 					</svg>
 				</Button>
 			</DropdownTrigger>
-			<DropdownMenu aria-label="Action event example" onAction={(key) => alert(key)}>
+			<DropdownMenu aria-label="Action event example" onAction={() => onDelete()}>
 				<DropdownItem key="delete" className="text-danger" color="danger">
 					Delete item
 				</DropdownItem>

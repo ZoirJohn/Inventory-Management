@@ -7,14 +7,18 @@ export default function useItems(inventoryId: string) {
 	const [loading, setLoading] = useState<boolean>();
 	const [error, setError] = useState<string>("");
 
-	useEffect(() => {
-		setLoading(true);
+	function fetchItems(inventoryId: string) {
 		client
 			.GET_ITEMS(inventoryId)
 			.then(setItems)
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
-	}, [items]);
+	}
 
-	return { items, loading, error, clear: () => setItems([]) };
+	useEffect(() => {
+		setLoading(true);
+		fetchItems(inventoryId);
+	}, []);
+
+	return { items, loading, error, refetch: fetchItems };
 }
