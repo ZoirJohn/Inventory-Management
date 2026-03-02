@@ -1,5 +1,3 @@
-// import { itemFields } from "./itemFields";
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API = {
 	AUTH_GOOGLE: BASE_URL + "/auth/google",
@@ -11,6 +9,7 @@ const API = {
 
 	INVENTORIES: BASE_URL + "/inventories",
 	USERS: BASE_URL + "/users",
+	ITEMS: BASE_URL + "/items",
 } as const;
 
 export const client = {
@@ -34,7 +33,7 @@ export const client = {
 	},
 	GET_ME: async () => {
 		try {
-			const res = await fetch(API.ME, { credentials: "include" }).then((res) => res);
+			const res = await fetch(API.ME,{}).then((res) => res);
 
 			if (!res.ok) throw new Error(res.statusText);
 			const data = await res.json();
@@ -82,7 +81,6 @@ export const client = {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(body),
-				credentials: "include",
 			});
 
 			if (!res.ok) {
@@ -117,8 +115,22 @@ export const client = {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ ...body }),
-				credentials: "include",
 			});
+			if (!res.ok) {
+				throw new Error(res.statusText);
+			}
+			const data = await res.json();
+
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw error;
+			}
+		}
+	},
+	DELETE_ITEMS: async (itemId: string) => {
+		try {
+			const res = await fetch(API.INVENTORIES + "/" + itemId, { method: "DELETE" });
 			if (!res.ok) {
 				throw new Error(res.statusText);
 			}
@@ -133,9 +145,7 @@ export const client = {
 	},
 	GET_USERS: async () => {
 		try {
-			const res = await fetch(API.USERS, {
-				credentials: "include",
-			});
+			const res = await fetch(API.USERS);
 			if (!res.ok) {
 				throw new Error(res.statusText);
 			}
