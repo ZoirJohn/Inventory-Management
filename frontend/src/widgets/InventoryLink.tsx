@@ -14,7 +14,7 @@ export default function InventoryLink({
   creatorName: string;
   createdAt: string;
 }) {
-  const createdDate = new Date(createdAt).toLocaleDateString("en-US", {
+  const createdDate = new Date(createdAt).toLocaleDateString(localStorage.getItem("lang")||"en", {
     year: "numeric",
     month: "short",
     day: "numeric",

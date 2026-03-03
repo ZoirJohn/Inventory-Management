@@ -22,7 +22,6 @@ export default function CustomID() {
   const [selects, setSelects] = useState<{ key: TRandomID; value: string }[]>(
     [],
   );
-
   return (
     <section>
       <div className="flex flex-col items-start gap-2 container">
@@ -34,7 +33,8 @@ export default function CustomID() {
               selectedKeys={[select.key]}
               onSelectionChange={(keys) => {
                 const key = Array.from(keys)[0] as TRandomID;
-
+				console.log(customId[key]());
+				
                 setSelects((prev) => {
                   const copy = [...prev];
 
@@ -47,11 +47,11 @@ export default function CustomID() {
                 });
               }}
             >
-              {elements.map((element) => (
-                <SelectItem key={element.key} aria-label="select-item">
+              {elements.map((element) => {
+                return <SelectItem key={element.key} aria-label="select-item">
                   {element.label}
                 </SelectItem>
-              ))}
+				})}
             </Select>
 
             <Input
@@ -59,12 +59,10 @@ export default function CustomID() {
               value={select.value}
               onChange={(e) => {
                 const value = e.target.value;
-
                 setSelects((prev) => {
                   const copy = [...prev];
 
                   copy[idx].value = value;
-
                   return copy;
                 });
               }}

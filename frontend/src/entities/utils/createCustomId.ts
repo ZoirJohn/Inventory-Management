@@ -4,7 +4,7 @@ const customId: Record<TRandomID, () => void> = {
   "9-digit-number": () => random9Digit(),
   "6-digit-number": () => random6Digit(),
   "date-time": () => randomDate(),
-  guid: () => randomGUID(),
+  guid: ()=> randomGUID(),
   sequence: () => sequence(),
   fixed: () => "",
 };
@@ -37,7 +37,7 @@ function randomDate() {
   return new Date().toISOString();
 }
 function randomGUID() {
-  return crypto.randomUUID;
+  return crypto.randomUUID();
 }
 function sequence() {
   return 1;

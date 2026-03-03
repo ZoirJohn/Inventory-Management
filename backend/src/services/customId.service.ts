@@ -57,10 +57,8 @@ async function getNextSequence(inventoryId: string): Promise<number> {
 }
 
 export async function generateCustomId(inventoryId: string): Promise<{ customId: string; sequenceValue?: number }> {
-	// Get ID format elements for this inventory
 	const elements = await db.select().from(idFormatElements).where(eq(idFormatElements.inventoryId, inventoryId)).orderBy(asc(idFormatElements.order));
 
-	// If no format configured, use default
 	if (elements.length === 0) {
 		const seq = await getNextSequence(inventoryId);
 		return {
