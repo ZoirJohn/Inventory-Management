@@ -10,13 +10,13 @@ export default function CustomID() {
 	const { t } = useTranslation();
 	const elements: { key: TRandomID; label: string }[] = [
 		{ key: "fixed", label: t("fixed") },
-		{ key: "20-bit-number", label: t("twentyBitRandom") },
-		{ key: "32-bit-number", label: t("thirtyTwoBitRandom") },
-		{ key: "6-digit-number", label: t("sixDigitRandom") },
-		{ key: "9-digit-number", label: t("nineDigitRandom") },
+		{ key: "20-bit", label: t("twentyBitRandom") },
+		{ key: "32-bit", label: t("thirtyTwoBitRandom") },
+		{ key: "6-digit", label: t("sixDigitRandom") },
+		{ key: "9-digit", label: t("nineDigitRandom") },
 		{ key: "guid", label: t("guid") },
 		{ key: "sequence", label: t("sequence") },
-		{ key: "date-time", label: t("date") },
+		{ key: "date", label: t("date") },
 	];
 
 	const [selects, setSelects] = useState<{ key: TRandomID; value: string }[]>([]);
@@ -75,8 +75,8 @@ export default function CustomID() {
 						setSelects((prev) => [
 							...prev,
 							{
-								key: "20-bit-number",
-								value: String(customId["20-bit-number"]()),
+								key: "20-bit",
+								value: String(customId["20-bit"]()),
 							},
 						])
 					}

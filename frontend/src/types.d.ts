@@ -1,10 +1,10 @@
 type TRandomID =
-  | "20-bit-number"
-  | "32-bit-number"
-  | "9-digit-number"
-  | "6-digit-number"
+  | "20-bit"
+  | "32-bit"
+  | "9-digit"
+  | "6-digit"
   | "guid"
-  | "date-time"
+  | "date"
   | "sequence"
   | "fixed";
 
