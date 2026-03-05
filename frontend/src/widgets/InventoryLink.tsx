@@ -14,11 +14,14 @@ export default function InventoryLink({
   creatorName: string;
   createdAt: string;
 }) {
-  const createdDate = new Date(createdAt).toLocaleDateString(localStorage.getItem("lang")||"en", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  const createdDate = new Date(createdAt).toLocaleDateString(
+    localStorage.getItem("lang") || "en",
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    },
+  );
 
   return (
     <NavLink to={id}>

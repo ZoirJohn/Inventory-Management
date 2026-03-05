@@ -3,8 +3,8 @@ const customId: Record<TRandomID, () => void> = {
   "32-bit": () => random32Bit(),
   "9-digit": () => random9Digit(),
   "6-digit": () => random6Digit(),
-  "date": () => randomDate(),
-  guid: ()=> randomGUID(),
+  date: () => randomDate(),
+  guid: () => randomGUID(),
   sequence: () => sequence(),
   fixed: () => "",
 };

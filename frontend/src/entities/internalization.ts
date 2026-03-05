@@ -56,6 +56,7 @@ export const internalization = i18next.use(initReactI18next).init({
         actions: "Actions",
         role: "Role",
         cancel: "Cancel",
+        save: "Save",
       },
     },
     ru: {
@@ -110,6 +111,7 @@ export const internalization = i18next.use(initReactI18next).init({
         actions: "Действия",
         role: "Роль",
         cancel: "Отмена",
+        save: "Сохранить",
       },
     },
   },
