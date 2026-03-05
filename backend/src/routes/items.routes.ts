@@ -4,6 +4,7 @@ import { items, inventories, users } from "../config/schema.ts";
 import { eq, and, desc } from "drizzle-orm";
 import { isAuthenticated } from "../middleware/auth.middleware.ts";
 import { canEditItems } from "../middleware/inventory.middleware.ts";
+import { generateCustomId } from "../services/customId.service.ts";
 
 const router = express.Router();
 
@@ -28,13 +29,14 @@ router.get("/inventories/:id/items", async (req, res) => {
 				customBool1: items.customBool1,
 				customBool2: items.customBool2,
 				customBool3: items.customBool3,
+				version: items.version,
 				creatorId: items.creatorId,
 				creatorName: users.name,
 				createdAt: items.createdAt,
 			})
 			.from(items)
 			.leftJoin(users, eq(items.creatorId, users.id))
-			.where(eq(items.inventoryId, req.params.id))
+			.where(eq(items.inventoryId, req.params.id as string))
 			.orderBy(desc(items.createdAt));
 
 		res.json(allItems);
@@ -43,34 +45,12 @@ router.get("/inventories/:id/items", async (req, res) => {
 	}
 });
 
-router.get("/items/:id", async (req, res) => {
-	try {
-		const [item] = await db.select().from(items).where(eq(items.id, req.params.id));
-
-		if (!item) {
-			return res.status(404).json({ message: "Item not found" });
-		}
-
-		res.json(item);
-	} catch (error) {
-		res.status(500).json({ message: "Error fetching item" });
-	}
-});
-
 router.post("/inventories/:id/items", isAuthenticated, canEditItems, async (req, res) => {
 	try {
 		const inventory = req.inventory!;
 		const itemData = req.body;
 
-		let customId = itemData.customId;
-
-		if (!customId) {
-			const [lastItem] = await db.select({ seq: items.sequenceValue }).from(items).where(eq(items.inventoryId, inventory.id)).orderBy(desc(items.sequenceValue)).limit(1);
-
-			const nextSeq = (lastItem?.seq || 0) + 1;
-			customId = `${inventory.customIdPrefix}${String(nextSeq).padStart(4, "0")}`;
-			itemData.sequenceValue = nextSeq;
-		}
+		const { customId, sequenceValue } = await generateCustomId(inventory.id);
 
 		const [existing] = await db
 			.select()
@@ -78,16 +58,54 @@ router.post("/inventories/:id/items", isAuthenticated, canEditItems, async (req,
 			.where(and(eq(items.inventoryId, inventory.id), eq(items.customId, customId)));
 
 		if (existing) {
-			return res.status(400).json({ message: "Custom ID already exists in this inventory" });
+			return res.status(400).json({
+				message: "Generated ID collision. Please try again.",
+			});
 		}
+
+		// Sanitize data
+		Object.keys(itemData).forEach((key) => {
+			if (itemData[key] === "") {
+				itemData[key] = null;
+			}
+
+			if (key.startsWith("customInt") && typeof itemData[key] === "string") {
+				itemData[key] = itemData[key] ? parseInt(itemData[key]) : null;
+			}
+
+			if (key.startsWith("customBool")) {
+				if (itemData[key] === "Yes" || itemData[key] === "true" || itemData[key] === true) {
+					itemData[key] = true;
+				} else if (itemData[key] === "No" || itemData[key] === "false" || itemData[key] === false) {
+					itemData[key] = false;
+				} else {
+					itemData[key] = null;
+				}
+			}
+		});
 
 		const [newItem] = await db
 			.insert(items)
 			.values({
 				inventoryId: inventory.id,
 				customId,
+				sequenceValue,
 				creatorId: req.user!.id,
-				...itemData,
+				customString1: itemData.customString1,
+				customString2: itemData.customString2,
+				customString3: itemData.customString3,
+				customText1: itemData.customText1,
+				customText2: itemData.customText2,
+				customText3: itemData.customText3,
+				customInt1: itemData.customInt1,
+				customInt2: itemData.customInt2,
+				customInt3: itemData.customInt3,
+				customLink1: itemData.customLink1,
+				customLink2: itemData.customLink2,
+				customLink3: itemData.customLink3,
+				customBool1: itemData.customBool1,
+				customBool2: itemData.customBool2,
+				customBool3: itemData.customBool3,
 			})
 			.returning();
 

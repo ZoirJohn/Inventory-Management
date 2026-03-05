@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 		const allUsers = await db.select().from(users);
 		res.json(allUsers);
 	} catch (error) {
-		res.status(500).json({ message: "Error fetching items" });
+		res.status(500).json({ message: "Error fetching users" });
 	}
 });
 
