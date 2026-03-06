@@ -29,8 +29,8 @@ export default function Inventories() {
             +
           </NavLink>
         </div>
-        <Outlet />
       </div>
+      <Outlet />
     </section>
   );
 }

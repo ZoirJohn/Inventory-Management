@@ -3,13 +3,17 @@ import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+// import { customId } from "@/entities/utils/createCustomId";
+import { useParams } from "react-router-dom";
 
-import { customId } from "@/entities/utils/createCustomId";
+import useCustomID from "@/entities/hooks/useCustomID";
 
 export default function CustomID() {
   const { t } = useTranslation();
+  const { inventoryId } = useParams();
+  const { customId } = useCustomID(inventoryId as string);
+
   const elements: { key: TRandomID; label: string }[] = [
-    { key: "fixed", label: t("fixed") },
     { key: "20-bit", label: t("twentyBitRandom") },
     { key: "32-bit", label: t("thirtyTwoBitRandom") },
     { key: "6-digit", label: t("sixDigitRandom") },
@@ -19,9 +23,11 @@ export default function CustomID() {
     { key: "date", label: t("date") },
   ];
 
-  const [selects, setSelects] = useState<{ key: TRandomID; value: string }[]>(
-    [],
-  );
+  const [selects, setSelects] =
+    useState<{ key: TRandomID; value: string }[]>(customId);
+  const preview = selects.map((selected) => {
+    return selected.value;
+  });
 
   return (
     <section>
@@ -77,24 +83,31 @@ export default function CustomID() {
             />
           </label>
         ))}
-
-        <Button
-          onClick={() =>
-            setSelects((prev) => [
-              ...prev,
-              {
-                key: "20-bit",
-                value: String(customId["20-bit"]()),
-              },
-            ])
-          }
-        >
-          {t("add")}
-        </Button>
-        <Button className="bg-primary" disabled={!selects.length}>
-          {t("save")}
-          asdf
-        </Button>
+        <div className="flex gap-2 py-4">
+          <Button
+            onClick={() =>
+              setSelects((prev) => [
+                ...prev,
+                {
+                  key: "20-bit",
+                  value: String(customId["20-bit"]()),
+                },
+              ])
+            }
+          >
+            {t("add")}
+          </Button>
+          <Button
+            className="bg-primary"
+            hidden={!selects.length}
+            onClick={() => {}}
+          >
+            {t("save")}
+          </Button>
+        </div>
+        <p className="text-lg!">
+          {selects.length ? "ITEM" + preview.join("-") : false}
+        </p>
       </div>
     </section>
   );

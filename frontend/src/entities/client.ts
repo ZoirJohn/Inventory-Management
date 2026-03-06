@@ -172,4 +172,22 @@ export const client = {
       }
     }
   },
+  GET_CUSTOM_ID: async (inventoryId: string) => {
+    try {
+      const res = await fetch(
+        API.INVENTORIES + "/" + inventoryId + "/id-format",
+      );
+
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      const data = await res.json();
+
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+  },
 };

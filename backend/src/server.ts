@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.routes.ts";
 import inventoryRoutes from "./routes/inventory.routes.ts";
 import itemsRoutes from "./routes/items.routes.ts";
 import usersRoutes from "./routes/users.routes.ts";
+import idFormatRoutes from "./routes/idFormat.routes.ts";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -40,6 +41,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/inventories", inventoryRoutes);
 app.use("/api", itemsRoutes);
+app.use("/api", idFormatRoutes);
 
 app.get("/health", (req, res) => {
 	res.json({ status: "ok", message: "Server is running" });

@@ -5,8 +5,7 @@ type TRandomID =
   | "6-digit"
   | "guid"
   | "date"
-  | "sequence"
-  | "fixed";
+  | "sequence";
 
 type TInventory = {
   title: string;
