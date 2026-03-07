@@ -28,7 +28,7 @@ app.use(
 		cookie: {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production",
-			sameSite:'lax',
+			sameSite: "lax",
 			maxAge: 24 * 60 * 60 * 1000,
 		},
 	}),
@@ -47,6 +47,4 @@ app.get("/health", (req, res) => {
 	res.json({ status: "ok", message: "Server is running" });
 });
 
-app.listen(PORT, () => {
-	console.log(`Server running in http://localhost:${process.env.PORT}`);
-});
+app.listen(PORT);

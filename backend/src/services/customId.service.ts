@@ -29,24 +29,8 @@ function randomGUID(): string {
 	return crypto.randomUUID();
 }
 
-function formatDate(format?: string | null): string {
+function formatDate(): string {
 	const now = new Date();
-
-	if (!format || format === "YYYY") {
-		return now.getFullYear().toString();
-	}
-
-	if (format === "YYYY-MM") {
-		const month = String(now.getMonth() + 1).padStart(2, "0");
-		return `${now.getFullYear()}-${month}`;
-	}
-
-	if (format === "YYYY-MM-DD") {
-		const month = String(now.getMonth() + 1).padStart(2, "0");
-		const day = String(now.getDate()).padStart(2, "0");
-		return `${now.getFullYear()}-${month}-${day}`;
-	}
-
 	return now.toISOString();
 }
 
@@ -60,54 +44,62 @@ export async function generateCustomId(inventoryId: string): Promise<{ customId:
 	const elements = await db.select().from(idFormatElements).where(eq(idFormatElements.inventoryId, inventoryId)).orderBy(asc(idFormatElements.order));
 
 	if (elements.length === 0) {
-		const seq = await getNextSequence(inventoryId);
 		return {
-			customId: `ITEM-${String(seq).padStart(4, "0")}`,
-			sequenceValue: seq,
+			customId: "",
+			sequenceValue: undefined,
 		};
 	}
 
 	let customId = "";
 	let sequenceValue: number | undefined;
+	const parts: string[] = [];
 
 	for (const element of elements) {
+		let part = "";
+
 		switch (element.type) {
 			case "fixed":
-				customId += element.value || "";
+				part = element.value || "";
 				break;
 
 			case "date":
-				customId += formatDate(element.value);
+				part = formatDate();
 				break;
 
 			case "sequence":
 				const seq = await getNextSequence(inventoryId);
 				const padding = parseInt(element.value || "1");
-				customId += String(seq).padStart(padding, "0");
+				part = String(seq).padStart(padding, "0");
 				sequenceValue = seq;
 				break;
 
 			case "6-digit":
-				customId += random6Digit();
+				part = random6Digit();
 				break;
 
 			case "9-digit":
-				customId += random9Digit();
+				part = random9Digit();
 				break;
 
 			case "20-bit":
-				customId += random20Bit();
+				part = random20Bit();
 				break;
 
 			case "32-bit":
-				customId += random32Bit();
+				part = random32Bit();
 				break;
 
 			case "guid":
-				customId += randomGUID();
+				part = randomGUID();
 				break;
 		}
+
+		if (part) {
+			parts.push(part);
+		}
 	}
+
+	customId = parts.join("-");
 
 	return { customId, sequenceValue };
 }

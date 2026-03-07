@@ -126,7 +126,7 @@ export default function CustomID() {
 				})}
 				<div className="flex gap-2 py-4">
 					<Button onClick={() => setSelects((prev) => [...prev, { type: "20-bit", value: "", order: prev.length }])}>{t("add")}</Button>
-					<Button className="bg-primary" hidden={!selects.length} onClick={handleSave}>
+					<Button className="bg-primary" onClick={handleSave}>
 						{t("save")}
 					</Button>
 				</div>

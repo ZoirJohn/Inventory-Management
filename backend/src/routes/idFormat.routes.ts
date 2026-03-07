@@ -25,8 +25,7 @@ router.put("/inventories/:id/id-format", isAuthenticated, canEditInventory, asyn
 	try {
 		const inventoryId = req.params.id as string;
 		const { idFormat } = req.body;
-		console.log(idFormat);
-		
+
 		if (!Array.isArray(idFormat)) {
 			return res.status(400).json({ message: "idFormat must be an array" });
 		}
