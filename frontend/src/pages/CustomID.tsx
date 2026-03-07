@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import useCustomID from "@/entities/hooks/useCustomID";
 import { createCustomId } from "@/entities/utils/createCustomId";
 import { client } from "@/entities/client";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 
 const example:Record<TRandomID,string> = {
 	"20-bit": String(createCustomId["20-bit"]()),
@@ -91,11 +92,35 @@ export default function CustomID() {
 									setSelects((prev) => {
 										const copy = [...prev];
 
-
 										return copy;
 									});
 								}}
 							/>
+							<Dropdown>
+								<DropdownTrigger>
+									<Button variant="bordered">
+										<svg className="w-6 dark:fill-white bg-transparent" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+											<path d="M320 208C289.1 208 264 182.9 264 152C264 121.1 289.1 96 320 96C350.9 96 376 121.1 376 152C376 182.9 350.9 208 320 208zM320 432C350.9 432 376 457.1 376 488C376 518.9 350.9 544 320 544C289.1 544 264 518.9 264 488C264 457.1 289.1 432 320 432zM376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320z" />
+										</svg>
+									</Button>
+								</DropdownTrigger>
+								<DropdownMenu aria-label="Static Actions">
+									<DropdownItem
+										key="delete"
+										className="text-danger"
+										color="danger"
+										onClick={() =>
+											setSelects((prev) =>
+												prev.filter((prevSelect) => {
+													return prevSelect.id!==select.id;
+												}),
+											)
+										}
+									>
+										Delete file
+									</DropdownItem>
+								</DropdownMenu>
+							</Dropdown>
 						</label>
 					);
 				})}
