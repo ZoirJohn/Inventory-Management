@@ -25,7 +25,8 @@ router.put("/inventories/:id/id-format", isAuthenticated, canEditInventory, asyn
 	try {
 		const inventoryId = req.params.id as string;
 		const { idFormat } = req.body;
-
+		console.log(idFormat);
+		
 		if (!Array.isArray(idFormat)) {
 			return res.status(400).json({ message: "idFormat must be an array" });
 		}
@@ -49,18 +50,6 @@ router.put("/inventories/:id/id-format", isAuthenticated, canEditInventory, asyn
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: "Error updating ID format" });
-	}
-});
-
-router.delete("/inventories/:id/id-format", isAuthenticated, canEditInventory, async (req, res) => {
-	try {
-		const inventoryId = req.params.id as string;
-
-		await db.delete(idFormatElements).where(eq(idFormatElements.inventoryId, inventoryId));
-
-		res.json({ message: "ID format reset to default" });
-	} catch (error) {
-		res.status(500).json({ message: "Error deleting ID format" });
 	}
 });
 

@@ -5,7 +5,6 @@ import Inventory from "@/widgets/InventoryLink";
 
 export default function Inventories() {
   const { inventories } = useInventories();
-
   return (
     <section>
       <div className="container flex">

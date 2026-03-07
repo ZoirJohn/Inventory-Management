@@ -63,7 +63,6 @@ router.post("/inventories/:id/items", isAuthenticated, canEditItems, async (req,
 			});
 		}
 
-		// Sanitize data
 		Object.keys(itemData).forEach((key) => {
 			if (itemData[key] === "") {
 				itemData[key] = null;
@@ -113,48 +112,6 @@ router.post("/inventories/:id/items", isAuthenticated, canEditItems, async (req,
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: "Error creating item" });
-	}
-});
-
-router.patch("/items/:id", isAuthenticated, async (req, res) => {
-	try {
-		const [item] = await db
-			.select()
-			.from(items)
-			.where(eq(items.id, req.params.id as string));
-
-		if (!item) {
-			return res.status(404).json({ message: "Item not found" });
-		}
-
-		const user = req.user!;
-
-		const [inventory] = await db.select().from(inventories).where(eq(inventories.id, item.inventoryId));
-
-		const canEdit = user.role === "ADMIN" || item.creatorId === user.id || inventory?.creatorId === user.id;
-
-		if (!canEdit) {
-			return res.status(403).json({ message: "You can only edit your own items" });
-		}
-
-		const updates = req.body;
-		if (updates.version !== undefined && updates.version !== item.version) {
-			return res.status(409).json({ message: "Item was modified. Please refresh." });
-		}
-
-		const [updated] = await db
-			.update(items)
-			.set({
-				...updates,
-				version: item.version + 1,
-				updatedAt: new Date(),
-			})
-			.where(eq(items.id, req.params.id as string))
-			.returning();
-
-		res.json(updated);
-	} catch (error) {
-		res.status(500).json({ message: "Error updating item" });
 	}
 });
 

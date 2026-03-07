@@ -1,4 +1,4 @@
-const customId: Record<TRandomID, () => void> = {
+const createCustomId: Record<TRandomID, () => void> = {
   "20-bit": () => random20Bit(),
   "32-bit": () => random32Bit(),
   "9-digit": () => random9Digit(),
@@ -6,7 +6,6 @@ const customId: Record<TRandomID, () => void> = {
   date: () => randomDate(),
   guid: () => randomGUID(),
   sequence: () => sequence(),
-  fixed: () => "",
 };
 
 function random20Bit() {
@@ -43,4 +42,4 @@ function sequence() {
   return 1;
 }
 
-export { customId, random20Bit, random32Bit, random6Digit, random9Digit };
+export { createCustomId, random20Bit, random32Bit, random6Digit, random9Digit };

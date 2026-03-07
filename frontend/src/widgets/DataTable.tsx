@@ -58,6 +58,7 @@ export default function DataTable() {
     ],
     [inventory],
   );
+console.log(items);
 
   return (
     <div className="flex flex-col items-center gap-4">
