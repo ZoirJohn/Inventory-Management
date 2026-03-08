@@ -19,11 +19,12 @@ import { useTranslation } from "react-i18next";
 
 import { UserProvider } from "@/shared/UserProvider";
 import useUsers from "@/entities/hooks/useUsers";
+import { Alert } from "@heroui/alert";
 
 export default function UsersTable() {
   const { t } = useTranslation();
   const { user } = useContext(UserProvider);
-  const { users, loading } = useUsers();
+  const { users, loading,error } = useUsers();
   const columns = [
     { key: "name", label: t("name") },
     { key: "email", label: t("email") },
@@ -36,34 +37,29 @@ export default function UsersTable() {
   if (loading) return <div className="container">Loading...</div>;
 
   return (
-    <Table aria-label="Example table with dynamic content">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.key} className="text-base">
-            {column.label}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={columns}>
-        {users.map((item: TUser) => {
-          return (
-            <TableRow key={item.email}>
-              {columns.map((col) => {
-                return (
-                  <TableCell key={col.label}>
-                    {col.key == "actions" ? (
-                      <DropdownButton />
-                    ) : (
-                      item[col.label.toLowerCase() as keyof TUser]
-                    )}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+		<>
+			<Table aria-label="Example table with dynamic content">
+				<TableHeader columns={columns}>
+					{(column) => (
+						<TableColumn key={column.key} className="text-base">
+							{column.label}
+						</TableColumn>
+					)}
+				</TableHeader>
+				<TableBody items={columns}>
+					{users.map((item: TUser) => {
+						return (
+							<TableRow key={item.email}>
+								{columns.map((col) => {
+									return <TableCell key={col.label}>{col.key == "actions" ? <DropdownButton /> : item[col.label.toLowerCase() as keyof TUser]}</TableCell>;
+								})}
+							</TableRow>
+						);
+					})}
+				</TableBody>
+			</Table>
+			{error && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={error} title={"Error"} />}
+		</>
   );
 }
 

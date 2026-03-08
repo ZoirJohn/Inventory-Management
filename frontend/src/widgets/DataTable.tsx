@@ -13,13 +13,14 @@ import getInputType from "@/entities/utils/getInputType";
 import useItems from "@/entities/hooks/useItems";
 import useInventory from "@/entities/hooks/useInventory";
 import { UserProvider } from "@/shared/UserProvider";
+import { Alert } from "@heroui/alert";
 
 export default function DataTable() {
 	const { user } = useContext(UserProvider);
 	const { t } = useTranslation();
 	const { inventoryId } = useParams();
-	const { inventory } = useInventory(inventoryId as string);
-	const { items, refetch } = useItems(inventoryId as string);
+	const { inventory, error: inventoryError } = useInventory(inventoryId as string);
+	const { items, error: itemsError, refetch } = useItems(inventoryId as string);
 	const [isUserAddingItem, setIsUserAddingItem] = useState<boolean>(false);
 	const tableRef = useRef<HTMLTableElement>(null);
 
@@ -108,6 +109,7 @@ export default function DataTable() {
 					</Button>
 				</div>
 			)}
+			{(inventoryError || itemsError) && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={inventoryError || itemsError} title={"Error"} />}
 		</div>
 	);
 }

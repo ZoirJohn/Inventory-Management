@@ -1,15 +1,15 @@
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API = {
-  AUTH_GOOGLE: BASE_URL + "/auth/google",
-  AUTH_FACEBOOK: BASE_URL + "/auth/facebook",
-  REGISTER: BASE_URL + "/auth/register",
-  LOGIN: BASE_URL + "/auth/login",
-  LOGOUT: BASE_URL + "/auth/logout",
-  ME: BASE_URL + "/auth/me",
+	AUTH_GOOGLE: BASE_URL + "	/auth/google",
+	AUTH_FACEBOOK: BASE_URL + "/auth/facebook",
+	REGISTER: BASE_URL + "/auth/register",
+	LOGIN: BASE_URL + "/auth/login",
+	LOGOUT: BASE_URL + "/auth/logout",
+	ME: BASE_URL + "/auth/me",
 
-  INVENTORIES: BASE_URL + "/inventories",
-  USERS: BASE_URL + "/users",
-  ITEMS: BASE_URL + "/items",
+	INVENTORIES: BASE_URL + "/inventories",
+	USERS: BASE_URL + "/users",
+	ITEMS: BASE_URL + "/items",
 } as const;
 
 export const client = {
@@ -31,10 +31,52 @@ export const client = {
 			}
 		}
 	},
+	LOGIN: async (body: Body) => {
+		try {
+			const res = await fetch(API.LOGIN, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(body),
+				credentials: "include",
+			});
+			if (!res.ok) {
+				const data = await res.json();
+				throw new Error(data.message);
+			}
+			const data = await res.json();
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error(error.message);
+			}
+		}
+	},
+	REGISTER: async (body: Body) => {
+		try {
+			const res = await fetch(API.REGISTER, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(body),
+			});
+			if (!res.ok) {
+				const data = await res.json();
+				throw new Error(data.message);
+			}
+			const data = await res.json();
+			return data;
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error(error.message);
+			}
+		}
+	},
 	GET_ME: async () => {
 		try {
 			const res = await fetch(API.ME, { credentials: "include" }).then((res) => res);
-
 			if (!res.ok) throw new Error(res.statusText);
 			const data = await res.json();
 

@@ -8,6 +8,7 @@ import useCustomID from "@/entities/hooks/useCustomID";
 import { createCustomId } from "@/entities/utils/createCustomId";
 import { client } from "@/entities/client";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Alert } from "@heroui/alert";
 
 const example:Record<TRandomID,string> = {
 	"20-bit": String(createCustomId["20-bit"]()),
@@ -22,7 +23,7 @@ const example:Record<TRandomID,string> = {
 export default function CustomID() {
 	const { t } = useTranslation();
 	const { inventoryId } = useParams();
-	const { customId } = useCustomID(inventoryId as string);
+	const { customId,error } = useCustomID(inventoryId as string);
 	const elements: { key: TRandomID; label: string }[] = [
 		{ key: "20-bit", label: t("twentyBitRandom") },
 		{ key: "32-bit", label: t("thirtyTwoBitRandom") },
@@ -112,7 +113,7 @@ export default function CustomID() {
 										onClick={() =>
 											setSelects((prev) =>
 												prev.filter((prevSelect) => {
-													return prevSelect.id!==select.id;
+													return prevSelect.id !== select.id;
 												}),
 											)
 										}
@@ -132,6 +133,7 @@ export default function CustomID() {
 				</div>
 				<p className="text-lg!">{selects.length ? "ITEM-" + preview.join("-") : false}</p>
 			</div>
+			{error && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={error} title={"Error"} />}
 		</section>
 	);
 }

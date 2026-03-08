@@ -47,3 +47,5 @@ type IdField = {
 	type: TRandomID;
 	id?:string
 };
+
+type TLoginForm=any
