@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API = {
-	AUTH_GOOGLE: BASE_URL + "	/auth/google",
+	AUTH_GOOGLE: BASE_URL + "/auth/google",
 	AUTH_FACEBOOK: BASE_URL + "/auth/facebook",
 	REGISTER: BASE_URL + "/auth/register",
 	LOGIN: BASE_URL + "/auth/login",
@@ -14,241 +14,153 @@ const API = {
 
 export const client = {
 	AUTH_GOOGLE: async () => {
-		try {
-			window.location.href = API.AUTH_GOOGLE;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error(error.message);
-			}
-		}
+		window.location.href = API.AUTH_GOOGLE;
 	},
 	AUTH_FACEBOOK: async () => {
-		try {
-			window.location.href = API.AUTH_FACEBOOK;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error(error.message);
-			}
-		}
+		window.location.href = API.AUTH_FACEBOOK;
 	},
 	LOGIN: async (body: Body) => {
-		try {
-			const res = await fetch(API.LOGIN, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(body),
-				credentials: "include",
-			});
-			if (!res.ok) {
-				const data = await res.json();
-				throw new Error(data.message);
-			}
-			const data = await res.json();
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error(error.message);
-			}
-		}
+		const res = await fetch(API.LOGIN, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(body),
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	REGISTER: async (body: Body) => {
-		try {
-			const res = await fetch(API.REGISTER, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(body),
-			});
-			if (!res.ok) {
-				const data = await res.json();
-				throw new Error(data.message);
-			}
-			const data = await res.json();
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error(error.message);
-			}
-		}
+		const res = await fetch(API.REGISTER, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(body),
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	GET_ME: async () => {
-		try {
-			const res = await fetch(API.ME, { credentials: "include" }).then((res) => res);
-			if (!res.ok) throw new Error(res.statusText);
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error(error.message);
-			}
-		}
+		const res = await fetch(API.ME, { credentials: "include" });
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	GET_INVENTORIES: async () => {
-		try {
-			const res = await fetch(API.INVENTORIES).then((res) => res);
-
-			if (!res.ok) throw new Error(res.statusText);
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error(error.message);
-			}
-		}
+		const res = await fetch(API.INVENTORIES);
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	GET_INVENTORY: async (inventoryId: string) => {
-		try {
-			const res = await fetch(API.INVENTORIES + "/" + inventoryId).then((res) => res);
-
-			if (!res.ok) throw new Error(res.statusText);
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error(error.message);
-			}
-		}
+		const res = await fetch(API.INVENTORIES + "/" + inventoryId);
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	CREATE_INVENTORY: async (body: Body) => {
-		try {
-			const res = await fetch(API.INVENTORIES, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(body),
-				credentials: "include",
-			});
-
-			if (!res.ok) {
-				throw new Error(res.statusText);
-			}
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw error;
-			}
-		}
+		const res = await fetch(API.INVENTORIES, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(body),
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	GET_ITEMS: async (inventoryId: string) => {
-		try {
-			const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items");
-
-			if (!res.ok) throw new Error(res.statusText);
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw error;
-			}
-		}
+		const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items");
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	CREATE_ITEM: async (inventoryId: string, body: object) => {
-		try {
-			const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ ...body }),
-				credentials: "include",
-			});
-
-			if (!res.ok) {
-				throw new Error(res.statusText);
-			}
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw error;
-			}
-		}
+		const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ ...body }),
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	DELETE_ITEM: async (itemId: string) => {
-		try {
-			const res = await fetch(API.ITEMS + "/" + itemId, {
-				method: "DELETE",
-				credentials: "include",
-			});
-
-			if (!res.ok) {
-				throw new Error(res.statusText);
-			}
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw error;
-			}
-		}
+		const res = await fetch(API.ITEMS + "/" + itemId, {
+			method: "DELETE",
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	GET_USERS: async () => {
-		try {
-			const res = await fetch(API.USERS);
-
-			if (!res.ok) {
-				throw new Error(res.statusText);
-			}
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw error;
-			}
-		}
+		const res = await fetch(API.USERS, { credentials: "include" });
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	GET_CUSTOM_ID: async (inventoryId: string) => {
-		try {
-			const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/id-format");
-
-			if (!res.ok) {
-				throw new Error(res.statusText);
-			}
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw error;
-			}
-		}
+		const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/id-format");
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 	CREATE_CUSTOM_ID: async (inventoryId: string, customId: Array<{ type: string; value: string; order: number }>) => {
-		try {
-			const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/id-format", {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					idFormat: customId,
-				}),
-				credentials: "include",
-			});
-
-			if (!res.ok) {
-				throw new Error(res.statusText);
-			}
-			const data = await res.json();
-
-			return data;
-		} catch (error) {
-			if (error instanceof Error) {
-				throw error;
-			}
-		}
+		const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/id-format", {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ idFormat: customId }),
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
+	GRANT: async (userId: string) => {
+		const res = await fetch(API.USERS + "/" + userId + "/make-admin", {
+			method: "PATCH",
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
+	REVOKE: async (userId: string) => {
+		const res = await fetch(API.USERS + "/" + userId + "/remove-admin", {
+			method: "PATCH",
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
+	BAN: async (userId: string) => {
+		const res = await fetch(API.USERS + "/" + userId + "/block", {
+			method: "PATCH",
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
+	UNBAN: async (userId: string) => {
+		const res = await fetch(API.USERS + "/" + userId + "/unblock", {
+			method: "PATCH",
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
+	DELETE_USER: async (userId: string) => {
+		const res = await fetch(API.USERS + "/" + userId, {
+			method: "DELETE",
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
 	},
 };

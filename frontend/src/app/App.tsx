@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
 import Auth from "@/pages/Auth";
 import CustomID from "@/pages/CustomID";
 import Home from "@/pages/Home";
@@ -9,44 +8,43 @@ import Inventories from "@/pages/Inventories";
 import CreateInventory from "@/widgets/CreateInventory";
 import DataTable from "@/widgets/DataTable";
 import Inventory from "@/widgets/Inventory";
-import { UserProvider } from "@/shared/UserProvider";
-import useUser from "@/entities/hooks/useUser";
 import Users from "@/pages/Users";
+import useUser from "@/entities/hooks/useUser";
+import { UserProvider } from "@/shared/UserProvider";
 
 function App() {
-  const { user } = useUser();
-  const { i18n } = useTranslation();
+	const { i18n } = useTranslation();
+	const { user, refetch } = useUser();
+	useEffect(() => {
+		const theme = localStorage.getItem("theme");
+		const language = localStorage.getItem("lang");
 
-  useEffect(() => {
-    const theme = localStorage.getItem("theme");
-    const language = localStorage.getItem("lang");
+		if (theme == "dark") document.getElementById("root")?.classList.add("dark");
+		if (language) i18n.changeLanguage(localStorage.getItem("lang") || "en");
+	}, []);
+	const value = { user, refetch };
+	return (
+		<UserProvider.Provider value={value}>
+			<Routes>
+				<Route element={<Auth />} path="auth" />
+				<Route element={<Home />} path="/">
+					<Route index element={<Navigate replace to="inventories" />} />
+					<Route element={<Users />} path="users" />
+					<Route element={<CreateInventory />} path="create" />
 
-    if (theme == "dark") document.getElementById("root")?.classList.add("dark");
-    if (language) i18n.changeLanguage(localStorage.getItem("lang") || "en");
-  }, []);
+					<Route path="inventories">
+						<Route index element={<Inventories />} />
 
-  return (
-    <UserProvider.Provider value={{ user }}>
-      <Routes>
-        <Route element={<Auth />} path="auth" />
-        <Route element={<Home />} path="/">
-          <Route index element={<Navigate replace to="inventories" />} />
-          <Route element={<Users />} path="users" />
-          <Route element={<CreateInventory />} path="create" />
-
-          <Route path="inventories">
-            <Route index element={<Inventories />} />
-
-            <Route element={<Inventory />} path=":inventoryId">
-              <Route index element={<Navigate replace to="items" />} />
-              <Route element={<DataTable />} path="items" />
-              <Route element={<CustomID />} path="custom-id" />
-            </Route>
-          </Route>
-        </Route>
-      </Routes>
-    </UserProvider.Provider>
-  );
+						<Route element={<Inventory />} path=":inventoryId">
+							<Route index element={<Navigate replace to="items" />} />
+							<Route element={<DataTable />} path="items" />
+							<Route element={<CustomID />} path="custom-id" />
+						</Route>
+					</Route>
+				</Route>
+			</Routes>
+		</UserProvider.Provider>
+	);
 }
 
 export default App;

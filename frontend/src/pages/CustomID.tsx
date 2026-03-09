@@ -10,7 +10,7 @@ import { client } from "@/entities/client";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 import { Alert } from "@heroui/alert";
 
-const example:Record<TRandomID,string> = {
+const example: Record<TRandomID, string> = {
 	"20-bit": String(createCustomId["20-bit"]()),
 	"32-bit": String(createCustomId["32-bit"]()),
 	"6-digit": String(createCustomId["6-digit"]()),
@@ -18,12 +18,19 @@ const example:Record<TRandomID,string> = {
 	guid: String(createCustomId.guid()),
 	sequence: "1",
 	date: new Date().toISOString(),
-}
+};
 
 export default function CustomID() {
 	const { t } = useTranslation();
 	const { inventoryId } = useParams();
-	const { customId,error } = useCustomID(inventoryId as string);
+	const { customId, error } = useCustomID(inventoryId as string);
+	const [localError, setLocalError] = useState("");
+
+	useEffect(() => {
+		if (!localError) return;
+		const timer = setTimeout(() => setLocalError(""), 5000);
+		return () => clearTimeout(timer);
+	}, [localError]);
 	const elements: { key: TRandomID; label: string }[] = [
 		{ key: "20-bit", label: t("twentyBitRandom") },
 		{ key: "32-bit", label: t("thirtyTwoBitRandom") },
@@ -43,7 +50,7 @@ export default function CustomID() {
 			order: index + 1,
 			value: "",
 		}));
-		await client.CREATE_CUSTOM_ID(inventoryId as string, formattedIdFormat);
+		await client.CREATE_CUSTOM_ID(inventoryId as string, formattedIdFormat).catch((e) => setLocalError(e.message));
 	};
 	useEffect(() => {
 		setSelects(customId);
@@ -133,7 +140,7 @@ export default function CustomID() {
 				</div>
 				<p className="text-lg!">{selects.length ? "ITEM-" + preview.join("-") : false}</p>
 			</div>
-			{error && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={error} title={"Error"} />}
+			{(error || localError) && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={error || localError} title={"Error"} />}
 		</section>
 	);
 }

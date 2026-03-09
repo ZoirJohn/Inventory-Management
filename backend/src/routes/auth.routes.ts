@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
 			return res.status(400).json({ message: "Email and password are required" });
 		}
 		if (password.length < 6) {
-			return res.json(400).json({ message: "Password must be at least 6 characters" });
+			return res.status(400).json({ message: "Password must be at least 6 characters" });
 		}
 
 		const [existing] = await db.select().from(users).where(eq(users.email, email));

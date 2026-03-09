@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@heroui/button";
 import { Card, CardBody } from "@heroui/card";
 import { Tabs, Tab } from "@heroui/tabs";
@@ -19,6 +19,17 @@ export default function Auth() {
 	const [error, setError] = useState<string>("");
 	const { register, handleSubmit, reset } = useForm();
 
+	useEffect(() => {
+		if (!error) return;
+		const timer = setTimeout(() => setError(""), 5000);
+		return () => clearTimeout(timer);
+	}, [error]);
+	useEffect(() => {
+		if (!success) return;
+		const timer = setTimeout(() => setSuccess(""), 5000);
+		return () => clearTimeout(timer);
+	}, [success]);
+
 	const login: SubmitHandler<TLoginForm> = async (data) => {
 		try {
 			const res = await client.LOGIN(data);
@@ -29,8 +40,7 @@ export default function Auth() {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				setError(error.message);				
-				throw new Error(error.message);
+				setError(error.message);
 			}
 		}
 	};
@@ -45,7 +55,6 @@ export default function Auth() {
 		} catch (error) {
 			if (error instanceof Error) {
 				setError(error.message);
-				throw new Error(error.message);
 			}
 		}
 	};

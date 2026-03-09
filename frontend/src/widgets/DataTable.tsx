@@ -1,7 +1,7 @@
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/table";
 import { useParams } from "react-router-dom";
 import { Input } from "@heroui/input";
-import { useState, useRef, useMemo, useContext } from "react";
+import { useState, useRef, useMemo, useEffect, useContext } from "react";
 import { Button } from "@heroui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -12,8 +12,8 @@ import { client } from "@/entities/client";
 import getInputType from "@/entities/utils/getInputType";
 import useItems from "@/entities/hooks/useItems";
 import useInventory from "@/entities/hooks/useInventory";
-import { UserProvider } from "@/shared/UserProvider";
 import { Alert } from "@heroui/alert";
+import { UserProvider } from "@/shared/UserProvider";
 
 export default function DataTable() {
 	const { user } = useContext(UserProvider);
@@ -22,17 +22,24 @@ export default function DataTable() {
 	const { inventory, error: inventoryError } = useInventory(inventoryId as string);
 	const { items, error: itemsError, refetch } = useItems(inventoryId as string);
 	const [isUserAddingItem, setIsUserAddingItem] = useState<boolean>(false);
+	const [localError, setLocalError] = useState("");
 	const tableRef = useRef<HTMLTableElement>(null);
+
+	useEffect(() => {
+		if (!localError) return;
+		const timer = setTimeout(() => setLocalError(""), 5000);
+		return () => clearTimeout(timer);
+	}, [localError]);
 
 	const { register, handleSubmit, reset } = useForm();
 	const onSubmit: SubmitHandler<unknown> = async (data: unknown) => {
-		await client.CREATE_ITEM(inventoryId as string, data as object);
+		await client.CREATE_ITEM(inventoryId as string, data as object).catch((e) => setLocalError(e.message));
 		refetch(inventoryId as string);
 		reset();
 		setIsUserAddingItem(false);
 	};
 	const onDelete = async (itemId: string) => {
-		await client.DELETE_ITEM(itemId);
+		await client.DELETE_ITEM(itemId).catch((e) => setLocalError(e.message));
 		refetch(inventoryId as string);
 	};
 
@@ -109,7 +116,7 @@ export default function DataTable() {
 					</Button>
 				</div>
 			)}
-			{(inventoryError || itemsError) && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={inventoryError || itemsError} title={"Error"} />}
+			{(inventoryError || itemsError || localError) && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={inventoryError || itemsError || localError} title={"Error"} />}
 		</div>
 	);
 }

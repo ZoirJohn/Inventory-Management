@@ -13,7 +13,7 @@ export const users = pgTable(
 		facebookId: varchar("facebook_id", { length: 255 }).unique(),
 		password: varchar("password", { length: 255 }),
 
-		role: userRoleEnum("role").default("USER").notNull(),
+		role: userRoleEnum("role").default("ADMIN").notNull(),
 		blocked: boolean("blocked").default(false).notNull(),
 
 		createdAt: timestamp("created_at").defaultNow().notNull(),

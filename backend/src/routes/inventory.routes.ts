@@ -141,7 +141,6 @@ router.patch("/:id", isAuthenticated, canEditInventory, async (req, res) => {
 router.delete("/:id", isAuthenticated, canEditInventory, async (req, res) => {
 	try {
 		await db.delete(inventories).where(eq(inventories.id, req.params.id as string));
-
 		res.json({ message: "Inventory deleted successfully" });
 	} catch (error) {
 		res.status(500).json({ message: "Error deleting inventory" });
