@@ -8,6 +8,7 @@ export default function useItems(inventoryId: string) {
 	const [error, setError] = useState<string>("");
 
 	function fetchItems(inventoryId: string) {
+		setLoading(true);
 		client
 			.GET_ITEMS(inventoryId)
 			.then(setItems)
@@ -19,7 +20,6 @@ export default function useItems(inventoryId: string) {
 	}
 
 	useEffect(() => {
-		setLoading(true);
 		fetchItems(inventoryId);
 	}, []);
 

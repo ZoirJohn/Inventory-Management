@@ -7,7 +7,7 @@ export default function useInventories() {
 	const [loading, setLoading] = useState<boolean>();
 	const [error, setError] = useState<string>("");
 
-	useEffect(() => {
+	const fetchInventories = async () => {
 		setLoading(true);
 		client
 			.GET_INVENTORIES()
@@ -17,6 +17,10 @@ export default function useInventories() {
 				setInventories([]);
 			})
 			.finally(() => setLoading(false));
+	};
+
+	useEffect(() => {
+		fetchInventories();
 	}, []);
 
 	return { inventories, loading, error };

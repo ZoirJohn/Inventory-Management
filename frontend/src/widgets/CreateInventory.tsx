@@ -10,7 +10,12 @@ import { UserProvider } from "@/shared/UserProvider";
 
 export default function CreateInventory() {
 	const { user } = useContext(UserProvider);
-	const { register, handleSubmit, reset } = useForm<TInventory>();
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { disabled },
+	} = useForm<TInventory>();
 	const { t } = useTranslation();
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
@@ -77,7 +82,7 @@ export default function CreateInventory() {
 						<Input {...register("customBool3Name")} placeholder={t("boolean")} />
 					</div>
 
-					<Button className="bg-primary text-white grow-0!" type="submit">
+					<Button className="bg-primary text-white grow-0!" type="submit" disabled={disabled}>
 						{t("submit")}
 					</Button>
 				</form>

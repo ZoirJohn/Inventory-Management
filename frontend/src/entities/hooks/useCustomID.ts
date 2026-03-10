@@ -8,6 +8,7 @@ export default function useCustomID(inventoryId: string) {
 	const [error, setError] = useState<string>("");
 
 	function fetchCustomID(inventoryId: string) {
+		setLoading(true);
 		client
 			.GET_CUSTOM_ID(inventoryId)
 			.then(setCustomId)
@@ -18,7 +19,6 @@ export default function useCustomID(inventoryId: string) {
 			.finally(() => setLoading(false));
 	}
 	useEffect(() => {
-		setLoading(true);
 		fetchCustomID(inventoryId);
 	}, []);
 

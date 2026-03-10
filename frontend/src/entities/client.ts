@@ -69,6 +69,15 @@ export const client = {
 		if (!res.ok) throw new Error(data.message);
 		return data;
 	},
+	DELETE_INVENTORY: async (inventoryId: string) => {
+		const res = await fetch(API.INVENTORIES+"/"+inventoryId, {
+			method: "DELETE",
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
 	GET_ITEMS: async (inventoryId: string) => {
 		const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/items");
 		const data = await res.json();
@@ -95,12 +104,6 @@ export const client = {
 		if (!res.ok) throw new Error(data.message);
 		return data;
 	},
-	GET_USERS: async () => {
-		const res = await fetch(API.USERS, { credentials: "include" });
-		const data = await res.json();
-		if (!res.ok) throw new Error(data.message);
-		return data;
-	},
 	GET_CUSTOM_ID: async (inventoryId: string) => {
 		const res = await fetch(API.INVENTORIES + "/" + inventoryId + "/id-format");
 		const data = await res.json();
@@ -114,6 +117,12 @@ export const client = {
 			body: JSON.stringify({ idFormat: customId }),
 			credentials: "include",
 		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
+	GET_USERS: async () => {
+		const res = await fetch(API.USERS, { credentials: "include" });
 		const data = await res.json();
 		if (!res.ok) throw new Error(data.message);
 		return data;
