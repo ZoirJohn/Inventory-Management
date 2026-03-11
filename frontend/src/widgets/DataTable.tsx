@@ -7,7 +7,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
-
 import { client } from "@/entities/client";
 import getInputType from "@/entities/utils/getInputType";
 import useItems from "@/entities/hooks/useItems";
@@ -39,8 +38,10 @@ export default function DataTable() {
 		setIsUserAddingItem(false);
 	};
 	const onDelete = async (itemId: string) => {
-		await client.DELETE_ITEM(itemId).catch((e) => setLocalError(e.message));
-		refetch(inventoryId as string);
+		client
+			.DELETE_ITEM(itemId)
+			.catch((e) => setLocalError(e.message))
+			.finally(() => refetch(inventoryId as string));
 	};
 
 	const columns = useMemo(

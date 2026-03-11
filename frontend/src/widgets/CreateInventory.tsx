@@ -8,7 +8,10 @@ import { Alert } from "@heroui/alert";
 import { client } from "@/entities/client";
 import { UserProvider } from "@/shared/UserProvider";
 
+const MAX_CUSTOM_FIELDS = 3;
+
 export default function CreateInventory() {
+	const [amount, setAmount] = useState<number>(1);
 	const { user } = useContext(UserProvider);
 	const {
 		register,
@@ -20,18 +23,10 @@ export default function CreateInventory() {
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
 	const onSubmit: SubmitHandler<TInventory> = async (data) => {
-		try {
-			const res = await client.CREATE_INVENTORY(data);
-
-			if (res) {
-				setSuccess("Inventory created successfully");
-				reset();
-			}
-		} catch (error) {
-			if (error instanceof Error) {
-				setError(error.message);
-			}
-		}
+		client
+			.CREATE_INVENTORY(data)
+			.then(() => {setSuccess("Inventory created successfully");reset()})
+			.catch((e) => setError(e.message));
 	};
 
 	useEffect(() => {
@@ -45,50 +40,54 @@ export default function CreateInventory() {
 		return () => clearTimeout(timer);
 	}, [success]);
 	if (!user) return <Navigate to="/" />;
+	function handleAddFields() {
+		if (amount < MAX_CUSTOM_FIELDS) setAmount((prev) => prev + 1);
+	}
 
+	function handleRemoveFields() {
+		if (amount < MAX_CUSTOM_FIELDS) setAmount((prev) => prev - 1);
+	}
 	return (
 		<>
 			<div className="flex flex-col justify-center items-center gap-4 min-h-[calc(100vh-64px)] container">
 				<h1 className="text-4xl">{t("createInventory")}</h1>
-				<form className="flex [&>div]:flex md:[&>div]:flex-row flex-col [&>div]:flex-col [&>div]:items-end gap-4 [&>div]:gap-2 md:gap-6 w-full md:w-2/3" onSubmit={handleSubmit(onSubmit)}>
-					<div>
+
+				<form className="relative flex flex-col gap-2 min-w-lg max-w-2xl " onSubmit={handleSubmit(onSubmit)}>
+					<div className="flex flex-col gap-2">
 						<Input {...register("title")} required placeholder={t("title")} />
 						<Input {...register("description")} required placeholder={t("description")} />
 					</div>
+					<div className="flex gap-2">
+						{new Array(amount).fill(0).map((_, i) => (
+							<div className="flex flex-col flex-1 gap-2" key={`customFieldWrapper-${i}`}>
+								<Input {...register(`customString${i + 1}`)} placeholder={t("string")} />
+								<Input {...register(`customText${i + 1}Name`)} placeholder={t("text")} />
+								<Input {...register(`customInt${i + 1}Name`)} placeholder={t("integer")} />
+								<Input {...register(`customLink${i + 1}Name`)} placeholder={t("link")} />
+								<Input {...register(`customBool${i + 1}Name`)} placeholder={t("boolean")} />
+							</div>
+						))}
+					</div>
+					{amount < MAX_CUSTOM_FIELDS && (
+						<button type="button" className="top-1/2 -right-30 absolute bg-gray-600 size-10! text-2xl! -translate-y-1/2 cursor-pointer" onClick={handleAddFields}>
+							+
+						</button>
+					)}
+					{amount != 1 && (
+						<button type="button" className="top-1/2 -right-50 absolute bg-gray-600 size-10! text-2xl! -translate-y-1/2 cursor-pointer" onClick={handleRemoveFields}>
+							-
+						</button>
+					)}
 
-					<div>
-						<Input {...register("customString1Name")} placeholder={t("string")} />
-						<Input {...register("customString2Name")} placeholder={t("string")} />
-						<Input {...register("customString3Name")} placeholder={t("string")} />
+					<div className="flex">
+						<Button className="bg-primary text-white" type="submit" disabled={disabled}>
+							{t("submit")}
+						</Button>
 					</div>
-					<div>
-						<Input {...register("customText1Name")} placeholder={t("text")} />
-						<Input {...register("customText2Name")} placeholder={t("text")} />
-						<Input {...register("customText3Name")} placeholder={t("text")} />
-					</div>
-					<div>
-						<Input {...register("customInt1Name")} placeholder={t("integer")} />
-						<Input {...register("customInt2Name")} placeholder={t("integer")} />
-						<Input {...register("customInt3Name")} placeholder={t("integer")} />
-					</div>
-					<div>
-						<Input {...register("customLink1Name")} placeholder={t("link")} />
-						<Input {...register("customLink2Name")} placeholder={t("link")} />
-						<Input {...register("customLink3Name")} placeholder={t("link")} />
-					</div>
-					<div>
-						<Input {...register("customBool1Name")} placeholder={t("boolean")} />
-						<Input {...register("customBool2Name")} placeholder={t("boolean")} />
-						<Input {...register("customBool3Name")} placeholder={t("boolean")} />
-					</div>
-
-					<Button className="bg-primary text-white grow-0!" type="submit" disabled={disabled}>
-						{t("submit")}
-					</Button>
 				</form>
 			</div>
-			{error && <Alert className="absolute bottom-5 right-5 w-80 bg-danger-50!" color="danger" description={error} title={"Error"} />}
-			{success && <Alert className="absolute bottom-5 right-5 w-80 bg-success-50!" color="success" description={success} title={"Success"} />}
+			{error && <Alert className="right-5 bottom-5 absolute bg-danger-50! w-80" color="danger" description={error} title={"Error"} />}
+			{success && <Alert className="right-5 bottom-5 absolute bg-success-50! w-80" color="success" description={success} title={"Success"} />}
 		</>
 	);
 }

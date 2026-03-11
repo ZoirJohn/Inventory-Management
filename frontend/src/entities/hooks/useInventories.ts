@@ -23,5 +23,5 @@ export default function useInventories() {
 		fetchInventories();
 	}, []);
 
-	return { inventories, loading, error };
+	return { inventories, loading, error,refetch: fetchInventories };
 }
