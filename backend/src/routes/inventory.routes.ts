@@ -111,33 +111,6 @@ router.post("/", isAuthenticated, async (req, res) => {
 	}
 });
 
-router.patch("/:id", isAuthenticated, canEditInventory, async (req, res) => {
-	try {
-		const inventory = req.inventory!;
-		const updates = req.body;
-
-		if (updates.version !== undefined && updates.version !== inventory.version) {
-			return res.status(409).json({
-				message: "Inventory was modified by another user. Please refresh and try again.",
-			});
-		}
-
-		const [updated] = await db
-			.update(inventories)
-			.set({
-				...updates,
-				version: inventory.version + 1,
-				updatedAt: new Date(),
-			})
-			.where(eq(inventories.id, req.params.id as string))
-			.returning();
-
-		res.json(updated);
-	} catch (error) {
-		res.status(500).json({ message: "Error updating inventory" });
-	}
-});
-
 router.delete("/:id", isAuthenticated, canEditInventory, async (req, res) => {
 	try {
 		await db.delete(inventories).where(eq(inventories.id, req.params.id as string));
