@@ -60,7 +60,7 @@ export default function CreateInventory() {
 					<div className="flex gap-2">
 						{new Array(amount).fill(0).map((_, i) => (
 							<div className="flex flex-col flex-1 gap-2" key={`customFieldWrapper-${i}`}>
-								<Input {...register(`customString${i + 1}`)} placeholder={t("string")} />
+								<Input {...register(`customString${i + 1}Name`)} placeholder={t("string")} />
 								<Input {...register(`customText${i + 1}Name`)} placeholder={t("text")} />
 								<Input {...register(`customInt${i + 1}Name`)} placeholder={t("integer")} />
 								<Input {...register(`customLink${i + 1}Name`)} placeholder={t("link")} />
