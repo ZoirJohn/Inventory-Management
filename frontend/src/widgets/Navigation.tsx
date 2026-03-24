@@ -8,7 +8,7 @@ import { changeTheme } from "@/entities/utils/changeTheme";
 import { useContext } from "react";
 import { UserProvider } from "@/shared/UserProvider";
 
-const links = ["inventories", "users"];
+const links = ["inventories", "users", "profile"];
 
 export default function Navigation() {
 	const { t, i18n } = useTranslation();

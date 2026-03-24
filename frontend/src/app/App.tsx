@@ -11,6 +11,7 @@ import Inventory from "@/widgets/Inventory";
 import Users from "@/pages/Users";
 import useUser from "@/entities/hooks/useUser";
 import { UserProvider } from "@/shared/UserProvider";
+import Profile from "@/pages/Profile";
 
 function App() {
 	const { i18n } = useTranslation();
@@ -30,6 +31,7 @@ function App() {
 				<Route element={<Home />} path="/">
 					<Route index element={<Navigate replace to="inventories" />} />
 					<Route element={<Users />} path="users" />
+					<Route element={<Profile />} path="profile" />
 					<Route element={<CreateInventory />} path="create" />
 
 					<Route path="inventories">

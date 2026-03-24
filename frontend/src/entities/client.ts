@@ -10,6 +10,8 @@ const API = {
 	INVENTORIES: BASE_URL + "/inventories",
 	USERS: BASE_URL + "/users",
 	ITEMS: BASE_URL + "/items",
+
+	SALESFORCE: BASE_URL + "/salesforce/contact",
 } as const;
 
 export const client = {
@@ -70,7 +72,7 @@ export const client = {
 		return data;
 	},
 	DELETE_INVENTORY: async (inventoryId: string) => {
-		const res = await fetch(API.INVENTORIES+"/"+inventoryId, {
+		const res = await fetch(API.INVENTORIES + "/" + inventoryId, {
 			method: "DELETE",
 			credentials: "include",
 		});
@@ -170,6 +172,13 @@ export const client = {
 		});
 		const data = await res.json();
 		if (!res.ok) throw new Error(data.message);
+		return data;
+	},
+	SYNC_WITH_SALESFORCE: async (formData: { FirstName: string; LastName: string; Title: String; Email: string }) => {
+		const body = JSON.stringify(formData);
+		const res = await fetch(API.SALESFORCE, { method: "POST", body, headers: { "Content-Type": "application/json" } });
+		const data = await res.json();
+		if (!res.ok) throw new Error(data[0].errorCode);
 		return data;
 	},
 };
