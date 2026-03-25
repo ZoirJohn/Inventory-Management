@@ -5,15 +5,15 @@ const router = express.Router();
 
 router.post("/contact", async (req, res) => {
 	try {
-		const { FirstName, LastName, Title } = req.body;
-		if (!FirstName || !LastName || !Title) {
+		const { FirstName, LastName, Title, Email } = req.body;
+		if (!FirstName || !LastName || !Title || !Email) {
 			return res.status(400).json({ message: "Required fields are missing" });
 		}
 		const { access_token, instance_url } = await getAccessToken();
 		const result = await fetch(instance_url + "/services/data/v66.0/sobjects/contact", {
 			method: "POST",
 			headers: { "Content-Type": "application/json", Authorization: `Bearer ${access_token}` },
-			body: JSON.stringify({ FirstName, LastName, Title }),
+			body: JSON.stringify({ FirstName, LastName, Title, Email }),
 		});
 
 		const data = await result.json();

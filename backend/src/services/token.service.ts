@@ -1,6 +1,6 @@
 let cachedToken: { instance_url: string; access_token: string; expires_at: number } | null = null;
 
-async function getAccessToken(): Promise<{ instance_url: string; access_token: string }> {
+export async function getAccessToken(): Promise<{ instance_url: string; access_token: string }> {
 	if (cachedToken && cachedToken?.expires_at > Date.now()) {
 		const { access_token, instance_url } = cachedToken;
 		return { access_token, instance_url };

@@ -38,5 +38,6 @@
 		"@types/pg": "^8.16.0",
 		"drizzle-kit": "^0.31.9",
 		"tsx": "^4.21.0"
-	}
+	},
+	"type": "module"
 }
