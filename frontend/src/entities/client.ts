@@ -178,7 +178,6 @@ export const client = {
 		const body = JSON.stringify(formData);
 		const res = await fetch(API.SALESFORCE, { method: "POST", body, headers: { "Content-Type": "application/json" } });
 		const data = await res.json();
-		console.log(data);
 		if (!res.ok) throw new Error(data[0].errorCode);
 		return data;
 	},
